@@ -1,5 +1,4 @@
-import { MODEL_PRESETS } from "@/shared/data/model-presets";
-import { IModelPreset } from "@/shared/types/model-presets";
+import { MODEL_PRESETS } from "@/constants/model-presets";
 
 interface IGenerateImageBody {
 	prompt: string;

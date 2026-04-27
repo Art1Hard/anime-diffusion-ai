@@ -1,4 +1,4 @@
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 import { View, ViewProps } from "react-native";
 
 const ScreenContainer = ({ style, ...props }: ViewProps) => {

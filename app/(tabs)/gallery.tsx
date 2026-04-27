@@ -1,5 +1,5 @@
-import COLORS from "@/shared/styles/colors";
-import { useGalleryStore } from "@/store/useGalleryStore";
+import COLORS from "@/constants/colors";
+import { useGalleryStore } from "@/store/gallery";
 import { useState } from "react";
 import { Image } from "expo-image";
 import {

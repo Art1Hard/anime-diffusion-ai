@@ -1,45 +1,19 @@
-import { generateImage } from "@/api/generate";
-import COLORS from "@/shared/styles/colors";
-import { useState } from "react";
+import COLORS from "@/constants/colors";
 import { ActivityIndicator, Keyboard, Pressable, View } from "react-native";
-import saveImage from "@/shared/utils/save-image";
+import saveImage from "@/utils/save-image";
 import StyledButton from "@/components/ui/StyledButton";
 import StyledTextInput from "@/components/ui/StyledTextInput";
-import { useGenerationStore } from "@/store/useGenerationStore";
 import ScreenContainer from "@/components/ui/ScreenContainer";
 import StyledText from "@/components/ui/StyledText";
-import { useGenerationSettingsStore } from "@/store/useGenerationSettingsStore";
-import { MODEL_PRESETS } from "@/shared/data/model-presets";
+import { MODEL_PRESETS } from "@/constants/model-presets";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
+import useGeneration from "./hooks/useGeneration";
 
 const GenerationScreen = () => {
-	const selectedModel = useGenerationSettingsStore((gss) => gss.selectedModel);
-
 	const router = useRouter();
-
-	const [prompt, setPrompt] = useState("");
-	const [negativePrompt, setNegativePrompt] = useState("");
-	const [loading, setLoading] = useState(false);
-	const image = useGenerationStore((gs) => gs.image);
-	const setImage = useGenerationStore((gs) => gs.setImage);
-
-	const onGenerate = async () => {
-		setLoading(true);
-		try {
-			const data = await generateImage({
-				prompt,
-				negative: negativePrompt,
-				modelPath: selectedModel,
-			});
-			const base64 = data.images[0];
-			setImage(base64);
-		} catch (e) {
-			console.log(e);
-		} finally {
-			setLoading(false);
-		}
-	};
+	const { selectedModel, prompts, setPrompts, loading, image, generate } =
+		useGeneration();
 
 	return (
 		<ScreenContainer>
@@ -65,8 +39,8 @@ const GenerationScreen = () => {
 			</Pressable>
 
 			<StyledTextInput
-				value={prompt}
-				onChangeText={setPrompt}
+				value={prompts.positive}
+				onChangeText={(positive) => setPrompts((p) => ({ ...p, positive }))}
 				placeholder="Please enter any prompt..."
 				multiline
 				numberOfLines={4}
@@ -75,8 +49,8 @@ const GenerationScreen = () => {
 			/>
 
 			<StyledTextInput
-				value={negativePrompt}
-				onChangeText={setNegativePrompt}
+				value={prompts.negative}
+				onChangeText={(negative) => setPrompts((p) => ({ ...p, negative }))}
 				autoCapitalize="none"
 				placeholder="You can enter negative prompt..."
 				style={{ marginBottom: 15 }}
@@ -118,12 +92,12 @@ const GenerationScreen = () => {
 				<StyledButton
 					disabled={loading}
 					title="Generate"
-					onPress={onGenerate}
+					onPress={generate}
 					style={{ width: "60%" }}
 					icon={{ name: "color-wand", size: 20 }}
 				/>
 				<StyledButton
-					disabled={image && !loading ? false : true}
+					disabled={!image || loading}
 					variant="success"
 					style={{
 						width: "38%",

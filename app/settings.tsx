@@ -10,10 +10,10 @@ import {
 	Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 import ScreenContainer from "@/components/ui/ScreenContainer";
-import { MODEL_PRESETS } from "@/shared/data/model-presets";
-import { useGenerationSettingsStore } from "@/store/useGenerationSettingsStore";
+import { MODEL_PRESETS } from "@/constants/model-presets";
+import { useGenerationSettingsStore } from "@/store/generationSettings";
 
 export default function SettingsScreen() {
 	const selectedModel = useGenerationSettingsStore((gss) => gss.selectedModel);

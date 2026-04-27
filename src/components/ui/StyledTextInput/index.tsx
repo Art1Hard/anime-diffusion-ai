@@ -1,4 +1,4 @@
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 import { TextInput, TextInputProps } from "react-native";
 import styles from "./styles";
 

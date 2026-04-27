@@ -1,4 +1,4 @@
-import GenerationScreen from "@/components/pages/GenerationScreen";
+import GenerationScreen from "@/screens/GenerationScreen";
 
 export default function GenerateScreen() {
 	return <GenerationScreen />;

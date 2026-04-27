@@ -2,7 +2,7 @@ import { Pressable, PressableProps } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import StyledText from "../StyledText";
 import styles from "./styles";
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 import { ComponentProps } from "react";
 
 interface StyledButtonProps extends Omit<PressableProps, "children"> {

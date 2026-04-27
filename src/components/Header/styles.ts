@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import COLORS from "@/shared/styles/colors";
-import { FONT_SIZES } from "@/shared/styles/sizes";
+import COLORS from "@/constants/colors";
+import { FONT_SIZES } from "@/constants/sizes";
 
 const styles = StyleSheet.create({
 	root: {

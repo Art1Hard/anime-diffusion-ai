@@ -1,4 +1,4 @@
-import { MODEL_PRESETS } from "@/shared/data/model-presets";
+import { MODEL_PRESETS } from "@/constants/model-presets";
 import { create } from "zustand";
 
 type GenerationSettingsStore = {

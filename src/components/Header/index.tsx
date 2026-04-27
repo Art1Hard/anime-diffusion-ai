@@ -8,7 +8,7 @@ import { Animated, Pressable, View } from "react-native";
 import useGlowBadge from "./useGlowBadge";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 
 interface HeaderProps extends Omit<SafeAreaViewProps, "children"> {
 	title: string;

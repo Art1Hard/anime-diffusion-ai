@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import COLORS from "@/shared/styles/colors";
+import COLORS from "@/constants/colors";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";

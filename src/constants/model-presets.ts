@@ -1,4 +1,4 @@
-import { IModel } from "@/shared/types/model-presets";
+import { IModel } from "@/types/model-presets";
 
 export const MODEL_PRESETS: IModel[] = [
 	{
