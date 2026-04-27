@@ -1,0 +1,91 @@
+import { IModel } from "@/shared/types/model-presets";
+
+export const MODEL_PRESETS: IModel[] = [
+	{
+		name: "WAI illustrious SDXL v16",
+		path: "waiIllustriousSDXL_v16",
+		params: {
+			basePrompt: ",masterpiece,best quality,amazing quality, ",
+			baseNegativePrompt:
+				" ,bad quality,worst quality,worst detail,sketch,censor, easynegative",
+			steps: 24,
+			cfgScale: 6,
+			clipSkip: 2,
+			width: 896,
+			height: 1152,
+			samplerName: "Euler a",
+			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.7,
+			hrSecondPassSteps: 12,
+			denoisingStrength: 0.35,
+		},
+	},
+	{
+		name: "Animagine XL v3.1",
+		path: "animagineXLV31_v31",
+		params: {
+			basePrompt: "masterpiece, best quality, very aesthetic, absurdres, ",
+			baseNegativePrompt:
+				" ,bad quality, worst quality, worst detail, sketch, censor, lowres, text, jpeg artifacts, low quality, watermark, unfinished, displeasing, signature, artistic error, username, scan, easynegative",
+			steps: 28,
+			cfgScale: 7,
+			clipSkip: 2,
+			width: 896,
+			height: 1152,
+			samplerName: "Euler a",
+			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.7,
+			hrSecondPassSteps: 14,
+			denoisingStrength: 0.35,
+		},
+	},
+	{
+		name: "realvisxlV5",
+		path: "realvisxlV5",
+		params: {
+			baseNegativePrompt:
+				"(octane render, render, drawing, anime, bad photo, bad photography:1.3), (worst quality, low quality, blurry:1.2), (bad teeth, deformed teeth, deformed lips), (bad anatomy, bad proportions:1.1), (deformed iris, deformed pupils), (deformed eyes, bad eyes), (deformed face, ugly face, bad face), (deformed hands, bad hands, fused fingers), morbid, mutilated, mutation, disfigured",
+			steps: 5,
+			cfgScale: 1.5,
+			clipSkip: 1,
+			width: 896,
+			height: 1152,
+			samplerName: "DPM++ SDE",
+			hrUpscaler: "4x_NMKD-Superscale-SP_178000_G",
+			hrScale: 1.5,
+			hrSecondPassSteps: 3,
+			denoisingStrength: 0.5,
+		},
+	},
+	{
+		name: "novaRealityXL_v9",
+		path: "novaRealityXL_v9",
+		params: {
+			steps: 30,
+			cfgScale: 4.5,
+			clipSkip: 2,
+			width: 768,
+			height: 1344,
+			samplerName: "Euler a",
+			hrUpscaler: "Latent",
+			hrScale: 1.8,
+			hrSecondPassSteps: 50,
+			denoisingStrength: 0.4,
+		},
+	},
+	{
+		name: "Deliberate_v6",
+		path: "Deliberate_v6",
+		params: {
+			steps: 22,
+			cfgScale: 5,
+			samplerName: "Euler a",
+			width: 512,
+			height: 512,
+			hrUpscaler: "Latent",
+			hrScale: 1.8,
+			hrSecondPassSteps: 20,
+			denoisingStrength: 0.7,
+		},
+	},
+];

@@ -1,20 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import GenerationScreen from "@/components/pages/GenerationScreen";
+import Header from "./src/components/Header";
+import COLORS from "./src/shared/styles/colors";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	return (
+		<SafeAreaView
+			edges={["bottom"]}
+			style={{ backgroundColor: COLORS.background, flex: 1 }}>
+			<StatusBar style="light" />
+			<Header title="Anime Diffusion" />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+			<GenerationScreen />
+		</SafeAreaView>
+	);
+}
