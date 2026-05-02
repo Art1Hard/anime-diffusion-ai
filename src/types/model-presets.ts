@@ -1,10 +1,10 @@
-export interface IModel {
+export interface IModelPreset {
 	name: string;
 	path: string;
-	params: IModelPreset;
+	params: IModelParams;
 }
 
-export interface IModelPreset {
+export interface IModelParams {
 	basePrompt?: string;
 	baseNegativePrompt?: string;
 	steps: number;
@@ -17,4 +17,19 @@ export interface IModelPreset {
 	hrScale: number;
 	hrSecondPassSteps: number;
 	denoisingStrength: number;
+}
+
+export interface ITxt2ImgPayload extends Omit<
+	IModelParams,
+	"basePrompt" | "baseNegativePrompt"
+> {
+	prompt: string;
+	negativePrompt: string;
+	overrideSettings: { sdModelCheckpoint: string };
+}
+
+export interface ITxt2ImgResponse {
+	images: string[];
+	parameters: ITxt2ImgPayload;
+	info: string;
 }

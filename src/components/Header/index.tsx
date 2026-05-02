@@ -4,7 +4,7 @@ import {
 } from "react-native-safe-area-context";
 import styles from "./styles";
 import StyledText from "../ui/StyledText";
-import { Animated, Pressable, View } from "react-native";
+import { Animated, Keyboard, Pressable, View } from "react-native";
 import useGlowBadge from "./useGlowBadge";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -44,7 +44,10 @@ const Header = ({ title, showBack, style, ...props }: HeaderProps) => {
 
 						<Pressable
 							style={styles.settingsBtn}
-							onPress={() => router.push("/settings")}>
+							onPress={() => {
+								Keyboard.dismiss();
+								router.push("/settings");
+							}}>
 							<Ionicons
 								name="settings-outline"
 								size={25}

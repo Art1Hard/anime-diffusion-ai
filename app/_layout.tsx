@@ -2,18 +2,26 @@ import Header from "@/components/Header";
 import COLORS from "@/constants/colors";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { useEffect } from "react";
+import { Platform, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as NavigationBar from "expo-navigation-bar";
 
 export default function RootLayout() {
+	useEffect(() => {
+		if (Platform.OS === "android") {
+			NavigationBar.setBackgroundColorAsync(COLORS.surface);
+
+			NavigationBar.setButtonStyleAsync("light");
+		}
+	}, []);
+
 	return (
-		<>
+		<GestureHandlerRootView style={{ flex: 1 }}>
 			<StatusBar style="light" />
 
 			<View style={{ flex: 1, backgroundColor: COLORS.background }}>
-				<Stack
-					screenOptions={{
-						contentStyle: { backgroundColor: COLORS.background },
-					}}>
+				<Stack>
 					<Stack.Screen
 						name="(tabs)"
 						options={{
@@ -29,8 +37,17 @@ export default function RootLayout() {
 							header: () => <Header title="Settings" showBack />,
 						}}
 					/>
+
+					<Stack.Screen
+						name="image-viewer"
+						options={{
+							presentation: "transparentModal",
+							headerShown: false,
+							animation: "fade",
+						}}
+					/>
 				</Stack>
 			</View>
-		</>
+		</GestureHandlerRootView>
 	);
 }

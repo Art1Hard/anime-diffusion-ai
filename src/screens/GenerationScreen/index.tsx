@@ -1,60 +1,20 @@
 import COLORS from "@/constants/colors";
 import { ActivityIndicator, Keyboard, Pressable, View } from "react-native";
-import saveImage from "@/utils/save-image";
 import StyledButton from "@/components/ui/StyledButton";
-import StyledTextInput from "@/components/ui/StyledTextInput";
 import ScreenContainer from "@/components/ui/ScreenContainer";
-import StyledText from "@/components/ui/StyledText";
-import { MODEL_PRESETS } from "@/constants/model-presets";
-import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 import useGeneration from "./hooks/useGeneration";
+import { saveImageToGallery } from "@/utils/image-process";
+import GenerationFields from "./components/GenerationFields/GenerationFields";
+import { useRouter } from "expo-router";
 
 const GenerationScreen = () => {
+	const { loading, image, generate } = useGeneration();
 	const router = useRouter();
-	const { selectedModel, prompts, setPrompts, loading, image, generate } =
-		useGeneration();
 
 	return (
 		<ScreenContainer>
-			<Pressable
-				onPress={() => router.push("/settings")}
-				style={{
-					padding: 10,
-					marginBottom: 10,
-					borderWidth: 1,
-					borderColor: COLORS.border,
-					borderRadius: 5,
-					gap: 5,
-				}}>
-				<StyledText
-					center
-					variant="micro"
-					style={{ color: COLORS.textSecondary }}>
-					Selected model:
-				</StyledText>
-				<StyledText center variant="small">
-					{MODEL_PRESETS.find((preset) => preset.path === selectedModel)!.name}
-				</StyledText>
-			</Pressable>
-
-			<StyledTextInput
-				value={prompts.positive}
-				onChangeText={(positive) => setPrompts((p) => ({ ...p, positive }))}
-				placeholder="Please enter any prompt..."
-				multiline
-				numberOfLines={4}
-				textAlignVertical="top"
-				style={{ marginBottom: 10, height: 100 }}
-			/>
-
-			<StyledTextInput
-				value={prompts.negative}
-				onChangeText={(negative) => setPrompts((p) => ({ ...p, negative }))}
-				autoCapitalize="none"
-				placeholder="You can enter negative prompt..."
-				style={{ marginBottom: 15 }}
-			/>
+			<GenerationFields style={{ marginBottom: 15 }} />
 
 			<View
 				style={{
@@ -72,42 +32,49 @@ const GenerationScreen = () => {
 					/>
 				) : (
 					image && (
-						<View
-							style={{ width: "100%", height: "100%", position: "relative" }}>
-							<Image
-								contentFit="contain"
-								source={{ uri: `data:image/png;base64,${image}` }}
-								style={{
-									width: "100%",
-									height: "100%",
-									marginBottom: 10,
-								}}
-							/>
-						</View>
+						<>
+							<Pressable
+								onPress={() => router.push("/image-viewer")}
+								style={{ width: "100%", height: "100%", position: "relative" }}>
+								<Image
+									contentFit="contain"
+									source={{ uri: image }}
+									style={{
+										width: "100%",
+										height: "100%",
+										marginBottom: 10,
+									}}
+								/>
+							</Pressable>
+						</>
 					)
 				)}
 			</View>
 
-			<View style={{ flexDirection: "row", gap: "2%" }}>
+			<View
+				style={{
+					flexDirection: "row",
+					gap: 12,
+				}}>
 				<StyledButton
 					disabled={loading}
 					title="Generate"
 					onPress={generate}
-					style={{ width: "60%" }}
+					style={{ flex: 1.9 }}
 					icon={{ name: "color-wand", size: 20 }}
 				/>
 				<StyledButton
 					disabled={!image || loading}
 					variant="success"
 					style={{
-						width: "38%",
+						flex: 1.1,
 						justifyContent: "center",
 					}}
 					onPress={() => {
 						if (!image) return;
 
 						Keyboard.dismiss();
-						saveImage(image);
+						saveImageToGallery(image);
 					}}
 					icon={{ name: "images", size: 20 }}
 					title="Save"

@@ -8,6 +8,7 @@ const ScreenContainer = ({ style, ...props }: ViewProps) => {
 				{
 					paddingHorizontal: 15,
 					paddingVertical: 20,
+					paddingBottom: 20 + 60,
 					flex: 1,
 					backgroundColor: COLORS.background,
 				},

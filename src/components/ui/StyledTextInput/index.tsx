@@ -12,6 +12,9 @@ const StyledTextInput = ({ style, ...props }: StyledTextInputProps) => {
 		<TextInput
 			placeholderTextColor={COLORS.textMuted}
 			style={[styles.root, style]}
+			cursorColor={COLORS.accentSoft}
+			selectionColor={COLORS.accentSoft}
+			selectionHandleColor={COLORS.accentSoft}
 			{...props}
 		/>
 	);

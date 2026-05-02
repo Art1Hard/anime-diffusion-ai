@@ -1,6 +1,6 @@
-import { IModel } from "@/types/model-presets";
+import { IModelPreset } from "@/types/model-presets";
 
-export const MODEL_PRESETS: IModel[] = [
+export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	{
 		name: "WAI illustrious SDXL v16",
 		path: "waiIllustriousSDXL_v16",

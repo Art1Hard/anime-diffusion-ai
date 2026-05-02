@@ -12,14 +12,12 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import ScreenContainer from "@/components/ui/ScreenContainer";
-import { MODEL_PRESETS } from "@/constants/model-presets";
-import { useGenerationSettingsStore } from "@/store/generationSettings";
+import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
+import { useGenerationStore } from "@/store/generation";
 
 export default function SettingsScreen() {
-	const selectedModel = useGenerationSettingsStore((gss) => gss.selectedModel);
-	const setSelectedModel = useGenerationSettingsStore(
-		(gss) => gss.setSelectedModel,
-	);
+	const selectedModelPath = useGenerationStore((gs) => gs.selectedModelPath);
+	const setSelectedModel = useGenerationStore((gs) => gs.setSelectedModelPath);
 	const [seed, setSeed] = useState("-1");
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
@@ -44,12 +42,12 @@ export default function SettingsScreen() {
 					<Text style={styles.sectionTitle}>Choose your model</Text>
 				</View>
 
-				{MODEL_PRESETS.map((model) => (
+				{MODEL_DEFAULT_PRESETS.map((model) => (
 					<Pressable
 						key={model.path}
 						style={[
 							styles.modelCard,
-							selectedModel === model.path && styles.modelCardActive,
+							selectedModelPath === model.path && styles.modelCardActive,
 						]}
 						onPress={() => setSelectedModel(model.path)}>
 						<View style={styles.modelInfo}>
@@ -59,9 +57,11 @@ export default function SettingsScreen() {
 						<View
 							style={[
 								styles.radio,
-								selectedModel === model.path && styles.radioActive,
+								selectedModelPath === model.path && styles.radioActive,
 							]}>
-							{selectedModel === model.path && <View style={styles.radioDot} />}
+							{selectedModelPath === model.path && (
+								<View style={styles.radioDot} />
+							)}
 						</View>
 					</Pressable>
 				))}

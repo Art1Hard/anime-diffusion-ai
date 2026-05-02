@@ -4,7 +4,7 @@ import { FONT_SIZES } from "@/constants/sizes";
 
 const styles = StyleSheet.create({
 	root: {
-		paddingVertical: 20,
+		paddingVertical: 15,
 		alignItems: "center",
 		backgroundColor: COLORS.surface,
 		borderBottomWidth: 1,
@@ -26,25 +26,21 @@ const styles = StyleSheet.create({
 	},
 	backBtn: {
 		position: "absolute",
-		left: -138,
-		boxSizing: "content-box",
-		width: 25,
-		height: 25,
-		padding: 20,
-		top: "50%",
-		transform: [{ translateY: "-50%" }],
+		top: "-25%",
+		left: "-34%",
+		width: 45,
+		height: 45,
 		justifyContent: "center",
+		alignItems: "center",
 	},
 	settingsBtn: {
 		position: "absolute",
-		right: -98,
-		boxSizing: "content-box",
-		width: 25,
-		height: 25,
-		padding: 20,
-		top: "50%",
-		transform: [{ translateY: "-50%" }],
+		top: "-25%",
+		right: "-23%", // Прижимаем к правому краю хедера
+		width: 45,
+		height: 45,
 		justifyContent: "center",
+		alignItems: "center",
 	},
 });
 
