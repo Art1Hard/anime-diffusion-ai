@@ -1,5 +1,6 @@
 export interface IModelPreset {
 	name: string;
+	description: string;
 	path: string;
 	params: IModelParams;
 }

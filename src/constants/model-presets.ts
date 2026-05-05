@@ -3,6 +3,8 @@ import { IModelPreset } from "@/types/model-presets";
 export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	{
 		name: "WAI illustrious SDXL v16",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
 		path: "waiIllustriousSDXL_v16",
 		params: {
 			basePrompt: ",masterpiece,best quality,amazing quality, ",
@@ -22,6 +24,8 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	},
 	{
 		name: "Animagine XL v3.1",
+		description:
+			"Аниме-модель с\u00A0упором на\u00A0детализацию и\u00A0эстетику. Хорошо подходит для\u00A0персонажей и\u00A0концепт-арта.",
 		path: "animagineXLV31_v31",
 		params: {
 			basePrompt: "masterpiece, best quality, very aesthetic, absurdres, ",
@@ -41,6 +45,8 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	},
 	{
 		name: "realvisxlV5",
+		description:
+			"Фотореалистичная модель для\u00A0людей и\u00A0портретов. Требует точных промптов, иначе появляются артефакты.",
 		path: "realvisxlV5",
 		params: {
 			baseNegativePrompt:
@@ -59,6 +65,8 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	},
 	{
 		name: "novaRealityXL_v9",
+		description:
+			"Художественная модель для\u00A0атмосферных и\u00A0кино сцен. Хороша для\u00A0концепт-арта.",
 		path: "novaRealityXL_v9",
 		params: {
 			steps: 30,
@@ -75,6 +83,8 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	},
 	{
 		name: "Deliberate_v6",
+		description:
+			"Лёгкая универсальная модель для\u00A0быстрых тестов и\u00A0простых генераций без\u00A0долгого рендера.",
 		path: "Deliberate_v6",
 		params: {
 			steps: 22,

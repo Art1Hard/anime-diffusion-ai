@@ -45,7 +45,7 @@ export default function SettingsScreen() {
 						onPress={() => setSelectedModel(model.path)}>
 						<View style={styles.modelInfo}>
 							<Text style={styles.modelName}>{model.name}</Text>
-							<Text style={styles.modelDesc}>{model.name}</Text>
+							<Text style={styles.modelDesc}>{model.description}</Text>
 						</View>
 						<View
 							style={[
@@ -95,7 +95,7 @@ export default function SettingsScreen() {
 					</Text>
 				</View>
 
-				{/* <View style={styles.paramCard}>
+				<View style={styles.paramCard}>
 					<View style={styles.paramHeader}>
 						<Text style={styles.paramLabel}>Шаги генерации</Text>
 						<Text style={styles.paramValue}>{steps}</Text>
@@ -127,7 +127,7 @@ export default function SettingsScreen() {
 						<Text style={styles.sliderLabel}>15</Text>
 					</View>
 					<Text style={styles.paramHint}>Как точно ИИ следует промпту</Text>
-				</View> */}
+				</View>
 			</ScreenContainer>
 
 			<ScreenContainer>
@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
+		gap: 12,
 		backgroundColor: COLORS.surface,
 		borderRadius: 12,
 		padding: 16,
