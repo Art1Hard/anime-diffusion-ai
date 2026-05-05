@@ -9,6 +9,7 @@ import useGlowBadge from "./useGlowBadge";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
+import { ROUTES } from "@/constants/routes";
 
 interface HeaderProps extends Omit<SafeAreaViewProps, "children"> {
 	title: string;
@@ -46,7 +47,7 @@ const Header = ({ title, showBack, style, ...props }: HeaderProps) => {
 							style={styles.settingsBtn}
 							onPress={() => {
 								Keyboard.dismiss();
-								router.push("/settings");
+								router.push(ROUTES.SETTINGS);
 							}}>
 							<Ionicons
 								name="settings-outline"

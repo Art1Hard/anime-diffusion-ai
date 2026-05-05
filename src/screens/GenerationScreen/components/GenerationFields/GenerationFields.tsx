@@ -5,6 +5,7 @@ import { Keyboard, Pressable, View, ViewProps } from "react-native";
 import styles from "./styles";
 import COLORS from "@/constants/colors";
 import useGenerationFields from "@/screens/GenerationScreen/hooks/useGenerationFields";
+import { ROUTES } from "@/constants/routes";
 
 const GenerationFields = (props: ViewProps) => {
 	const {
@@ -22,7 +23,7 @@ const GenerationFields = (props: ViewProps) => {
 			<Pressable
 				onPress={() => {
 					Keyboard.dismiss();
-					router.push("/settings");
+					router.push(ROUTES.SETTINGS);
 				}}
 				style={styles.model}>
 				<StyledText

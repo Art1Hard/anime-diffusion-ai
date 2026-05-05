@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageViewer from "react-native-image-zoom-viewer";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const imageViewer = () => {
 	const [showDetails, setShowDetails] = useState(false);
@@ -19,11 +18,10 @@ const imageViewer = () => {
 	}
 
 	return (
-		<SafeAreaView
-			edges={["top"]}
+		<View
 			style={{
 				flex: 1,
-				backgroundColor: showDetails ? "black" : COLORS.overlay,
+				backgroundColor: "black",
 			}}>
 			<ImageViewer
 				minScale={0.7}
@@ -39,7 +37,6 @@ const imageViewer = () => {
 				renderIndicator={() => <></>}
 				saveToLocalByLongPress={false}
 				backgroundColor="transparent"
-				// Главная фишка: тап по картинке переключает инфо
 				onClick={() => setShowDetails(!showDetails)}
 				renderHeader={() => (
 					<>
@@ -94,7 +91,7 @@ const imageViewer = () => {
 					</>
 				)}
 			/>
-		</SafeAreaView>
+		</View>
 	);
 };
 

@@ -24,13 +24,6 @@ export default function SettingsScreen() {
 	const [highQuality, setHighQuality] = useState(true);
 	const [saveToGallery, setSaveToGallery] = useState(true);
 
-	const models = [
-		{ id: "sdxl-1.0", name: "SDXL 1.0", desc: "Лучшее качество" },
-		{ id: "sd-2.1", name: "SD 2.1", desc: "Быстрая генерация" },
-		{ id: "dreamshaper", name: "DreamShaper", desc: "Стилизация" },
-		{ id: "realistic-vision", name: "Realistic Vision", desc: "Реализм" },
-	];
-
 	return (
 		<ScrollView
 			style={{ backgroundColor: COLORS.background }}

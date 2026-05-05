@@ -3,17 +3,14 @@ import COLORS from "@/constants/colors";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { Platform, View } from "react-native";
+import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as NavigationBar from "expo-navigation-bar";
 
 export default function RootLayout() {
 	useEffect(() => {
-		if (Platform.OS === "android") {
-			NavigationBar.setBackgroundColorAsync(COLORS.surface);
-
-			NavigationBar.setButtonStyleAsync("light");
-		}
+		NavigationBar.setPositionAsync("absolute");
+		NavigationBar.setBackgroundColorAsync("transparent");
 	}, []);
 
 	return (

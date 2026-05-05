@@ -4,10 +4,20 @@ import { useGenerationStore } from "@/store/generation";
 import { ITxt2ImgPayload } from "@/types/model-presets";
 import { convertBase64ToFile } from "@/utils/image-process";
 import { useState } from "react";
+import { useSdProgress } from "./useSdProgress";
 
 const useGeneration = () => {
+	const setProgress = useGenerationStore((gs) => gs.setProgress);
+	const setPreviewImage = useGenerationStore((gs) => gs.setPreviewImage);
+
+	const { start: startPolling, stop: stopPolling } = useSdProgress({
+		onProgress: setProgress,
+		onPreview: setPreviewImage,
+	});
+
 	const prompt = useGenerationStore((gs) => gs.prompt);
 	const negativePrompt = useGenerationStore((gs) => gs.negativePrompt);
+
 	const [loading, setLoading] = useState(false);
 
 	const selectedModelPath = useGenerationStore((gs) => gs.selectedModelPath);
@@ -18,6 +28,7 @@ const useGeneration = () => {
 
 	const generate = async () => {
 		setLoading(true);
+
 		try {
 			const modelPreset = MODEL_DEFAULT_PRESETS.find(
 				(mp) => mp.path === selectedModelPath,
@@ -31,15 +42,18 @@ const useGeneration = () => {
 				...modelPreset.params,
 			};
 
+			startPolling();
+
 			const data = await generateImage(body);
 
-			console.log(data.parameters);
+			stopPolling();
 
 			const path = await convertBase64ToFile(data.images[0]);
 			setImage(path);
 			setLastImageParams(data.parameters);
 		} catch (e) {
 			console.log(e);
+			stopPolling();
 		} finally {
 			setLoading(false);
 		}

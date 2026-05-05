@@ -6,3 +6,7 @@ export const FONT_SIZES = {
 	micro: 12,
 	nano: 8,
 };
+
+export const TAB_SIZES = {
+	height: 60,
+};
