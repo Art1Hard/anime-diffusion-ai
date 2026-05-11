@@ -16,7 +16,7 @@ const listGap = 4;
 const viewHorizontalPadding = 15;
 const ITEM_SIZE = width / 2 - listGap - viewHorizontalPadding;
 
-export default function GalleryScreen() {
+export default function Route() {
 	const [selected, setSelected] = useState<string | null>(null);
 	const images = useGalleryStore((s) => s.images);
 

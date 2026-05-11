@@ -28,7 +28,8 @@ const COLORS = {
 	divider: "#1F1F1F",
 
 	// 🌫 Overlay
-	overlay: "rgba(0,0,0,0.9)",
+	overlayOpacity: "rgba(0,0,0,0.6)",
+	overlay: "#000000",
 
 	// ✨ Special (под твой проект)
 	glow: "rgba(255,122,0,0.25)",

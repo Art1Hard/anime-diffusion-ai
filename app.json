@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "Anime Diffusion AI",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,13 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-			"navigationBar": {
-				"backgroundColor": "#1A1A1A",
-				"barStyle": "light-content"
-			},
-      "edgeToEdgeEnabled": true,
-			"softwareKeyboardLayoutMode": "pan",
-      "predictiveBackGestureEnabled": false,
+      "softwareKeyboardLayoutMode": "pan",
       "package": "com.hardov.mobile"
     },
     "web": {
@@ -39,7 +33,23 @@
       }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      [
+				"react-native-edge-to-edge",
+				{
+					"android": {
+						"enforceNavigationBarContrast": false
+					}
+				}
+			]
     ]
   }
 }

@@ -15,7 +15,7 @@ const GenerationPreviewLoader = ({ style, ...props }: ViewProps) => {
 			{...props}>
 			{previewImage ? (
 				<Image
-					source={{ uri: previewImage }}
+					source={{ uri: `data:image/png;base64,${previewImage}` }}
 					style={{
 						width: "100%",
 						height: "92%",

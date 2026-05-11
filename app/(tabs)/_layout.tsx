@@ -1,8 +1,7 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
-import { View } from "react-native";
-import { TAB_SIZES } from "@/constants/sizes";
+import { TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabsLayout() {
@@ -15,23 +14,21 @@ export default function TabsLayout() {
 				tabBarActiveTintColor: COLORS.primary,
 				tabBarInactiveTintColor: "#888",
 				tabBarStyle: {
-					backgroundColor: "transparent",
-					borderTopWidth: 0,
-					paddingTop: 1,
-					paddingBottom: insets.bottom,
-					height: TAB_SIZES.height + insets.bottom,
-					position: "absolute",
+					backgroundColor: COLORS.surface,
+					borderTopWidth: 1,
+					borderColor: COLORS.border,
+					marginTop: -1,
+					height: 60 + insets.bottom,
 				},
-
-				tabBarBackground: () => (
-					<View
-						style={{
-							flex: 1,
-							borderTopWidth: 1,
-							borderTopColor: COLORS.border,
-							backgroundColor: COLORS.surface,
-						}}
-					/>
+				tabBarButton: (props) => (
+					<TouchableOpacity
+						onPress={props.onPress}
+						activeOpacity={1}
+						accessibilityState={props.accessibilityState}
+						accessibilityLabel={props.accessibilityLabel}
+						style={props.style}>
+						{props.children}
+					</TouchableOpacity>
 				),
 			}}>
 			<Tabs.Screen
@@ -51,7 +48,6 @@ export default function TabsLayout() {
 					tabBarIcon: ({ color, size }) => (
 						<Ionicons name="images-outline" size={size} color={color} />
 					),
-					tabBarLabelPosition: "below-icon",
 				}}
 			/>
 		</Tabs>

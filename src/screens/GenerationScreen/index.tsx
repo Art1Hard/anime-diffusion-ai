@@ -1,22 +1,22 @@
 import ScreenContainer from "@/components/ui/ScreenContainer";
-import useGeneration from "./hooks/useGeneration";
 import {
 	GenerationButtons,
 	GenerationFields,
 	GenerationOutput,
 } from "./components";
+import useGeneration from "./hooks/useGeneration";
 
 const GenerationScreen = () => {
-	const { loading, image, generate } = useGeneration();
+	const { image, isLoading, generate } = useGeneration();
 
 	return (
-		<ScreenContainer extendedBottom>
+		<ScreenContainer>
 			<GenerationFields style={{ marginBottom: 15 }} />
-			<GenerationOutput image={image} isLoading={loading} />
+			<GenerationOutput image={image} isLoading={isLoading} />
 			<GenerationButtons
 				generate={generate}
 				image={image}
-				isLoading={loading}
+				isLoading={isLoading}
 			/>
 		</ScreenContainer>
 	);

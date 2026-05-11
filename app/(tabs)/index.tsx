@@ -1,5 +1,5 @@
 import GenerationScreen from "@/screens/GenerationScreen";
 
-export default function GenerateScreen() {
+export default function Route() {
 	return <GenerationScreen />;
 }

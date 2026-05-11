@@ -2,7 +2,12 @@ import { ToastAndroid } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import requestLibraryPermissionAsync from "@/utils/request-library-permission";
 
-const saveImage = async (fileUri: string) => {
+const saveImage = async (fileUri: string | null) => {
+	if (!fileUri) {
+		ToastAndroid.show("Not found image for save", ToastAndroid.SHORT);
+		return;
+	}
+
 	try {
 		const hasPermission = await requestLibraryPermissionAsync();
 		if (!hasPermission) return;
