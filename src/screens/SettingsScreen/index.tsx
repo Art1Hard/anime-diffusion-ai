@@ -12,17 +12,23 @@ import { Ionicons } from "@expo/vector-icons";
 import COLORS from "@/constants/colors";
 import ScreenContainer from "@/components/ui/ScreenContainer";
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
-import { useGenerationStore } from "@/store/generation";
 import styles from "./styles";
+import { useGenerationSettingsStore } from "@/store/generationSettings";
 
 const SettingsScreen = () => {
-	const selectedModelPath = useGenerationStore((gs) => gs.selectedModelPath);
-	const setSelectedModel = useGenerationStore((gs) => gs.setSelectedModelPath);
+	const selectedModelPath = useGenerationSettingsStore(
+		(gs) => gs.selectedModelPath,
+	);
+	const setSelectedModel = useGenerationSettingsStore(
+		(gs) => gs.setSelectedModelPath,
+	);
+
+	const rating = useGenerationSettingsStore((gs) => gs.rating);
+	const setRating = useGenerationSettingsStore((gs) => gs.setRating);
+
 	const [seed, setSeed] = useState("-1");
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
-	const [highQuality, setHighQuality] = useState(true);
-	const [saveToGallery, setSaveToGallery] = useState(true);
 
 	return (
 		<ScrollView
@@ -58,6 +64,64 @@ const SettingsScreen = () => {
 						</View>
 					</Pressable>
 				))}
+			</ScreenContainer>
+
+			<ScreenContainer>
+				<View style={styles.sectionHeader}>
+					<Ionicons name="flame-outline" size={20} color={COLORS.primary} />
+					<Text style={styles.sectionTitle}>Generation Rating</Text>
+				</View>
+
+				<View style={styles.toggleCard}>
+					<View style={styles.toggleInfo}>
+						<Text style={styles.toggleLabel}>Sensitive</Text>
+						<Text style={styles.toggleDesc}>
+							Suggestive content with mild erotic themes
+						</Text>
+					</View>
+					<Switch
+						value={rating === "sensitive"}
+						onValueChange={(value) => {
+							setRating(value ? "sensitive" : "general");
+						}}
+						trackColor={{ false: COLORS.border, true: COLORS.primary }}
+						thumbColor={COLORS.textPrimary}
+					/>
+				</View>
+
+				<View style={styles.toggleCard}>
+					<View style={styles.toggleInfo}>
+						<Text style={styles.toggleLabel}>NSFW</Text>
+						<Text style={styles.toggleDesc}>
+							Adult content with nudity or sexual themes
+						</Text>
+					</View>
+					<Switch
+						value={rating === "nsfw"}
+						onValueChange={(value) => {
+							setRating(value ? "nsfw" : "general");
+						}}
+						trackColor={{ false: COLORS.border, true: COLORS.primary }}
+						thumbColor={COLORS.textPrimary}
+					/>
+				</View>
+
+				<View style={styles.toggleCard}>
+					<View style={styles.toggleInfo}>
+						<Text style={styles.toggleLabel}>Explicit</Text>
+						<Text style={styles.toggleDesc}>
+							Unrestricted explicit adult content
+						</Text>
+					</View>
+					<Switch
+						value={rating === "explicit"}
+						onValueChange={(value) => {
+							setRating(value ? "explicit" : "general");
+						}}
+						trackColor={{ false: COLORS.border, true: COLORS.primary }}
+						thumbColor={COLORS.textPrimary}
+					/>
+				</View>
 			</ScreenContainer>
 
 			<ScreenContainer>
@@ -127,41 +191,6 @@ const SettingsScreen = () => {
 						<Text style={styles.sliderLabel}>15</Text>
 					</View>
 					<Text style={styles.paramHint}>Как точно ИИ следует промпту</Text>
-				</View>
-			</ScreenContainer>
-
-			<ScreenContainer>
-				<View style={styles.sectionHeader}>
-					<Ionicons name="image-outline" size={20} color={COLORS.primary} />
-					<Text style={styles.sectionTitle}>Качество и вывод</Text>
-				</View>
-
-				<View style={styles.toggleCard}>
-					<View style={styles.toggleInfo}>
-						<Text style={styles.toggleLabel}>🎨 Высокое качество</Text>
-						<Text style={styles.toggleDesc}>
-							Улучшенная детализация (медленнее)
-						</Text>
-					</View>
-					<Switch
-						value={highQuality}
-						onValueChange={setHighQuality}
-						trackColor={{ false: COLORS.border, true: COLORS.primary }}
-						thumbColor={COLORS.textPrimary}
-					/>
-				</View>
-
-				<View style={styles.toggleCard}>
-					<View style={styles.toggleInfo}>
-						<Text style={styles.toggleLabel}>💾 Сохранять в галерею</Text>
-						<Text style={styles.toggleDesc}>Автосохранение результатов</Text>
-					</View>
-					<Switch
-						value={saveToGallery}
-						onValueChange={setSaveToGallery}
-						trackColor={{ false: COLORS.border, true: COLORS.primary }}
-						thumbColor={COLORS.textPrimary}
-					/>
 				</View>
 			</ScreenContainer>
 

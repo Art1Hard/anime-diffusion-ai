@@ -7,7 +7,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
 		path: "waiIllustriousSDXL_v16",
 		params: {
-			basePrompt: ",masterpiece,best quality,amazing quality, ",
+			basePrompt: " ,masterpiece,best quality,amazing quality,",
 			baseNegativePrompt:
 				" ,bad quality,worst quality,worst detail,sketch,censor, easynegative",
 			steps: 24,
@@ -23,12 +23,33 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		},
 	},
 	{
+		name: "WAI illustrious SDXL v17",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество (НОВАЯ ВЕРСИЯ).",
+		path: "waiIllustriousSDXL_v170",
+		params: {
+			basePrompt: " ,masterpiece,best quality,amazing quality,",
+			baseNegativePrompt:
+				" ,bad quality,worst quality,worst detail,sketch,censor,",
+			steps: 30,
+			cfgScale: 7,
+			clipSkip: 2,
+			width: 1024,
+			height: 1344,
+			samplerName: "Euler a",
+			hrUpscaler: "R-ESRGAN 4x+ Anime6B",
+			hrScale: 1.5,
+			hrSecondPassSteps: 20,
+			denoisingStrength: 0.5,
+		},
+	},
+	{
 		name: "Animagine XL v3.1",
 		description:
 			"Аниме-модель с\u00A0упором на\u00A0детализацию и\u00A0эстетику. Хорошо подходит для\u00A0персонажей и\u00A0концепт-арта.",
 		path: "animagineXLV31_v31",
 		params: {
-			basePrompt: "masterpiece, best quality, very aesthetic, absurdres, ",
+			basePrompt: " ,masterpiece, best quality, very aesthetic, absurdres,",
 			baseNegativePrompt:
 				" ,bad quality, worst quality, worst detail, sketch, censor, lowres, text, jpeg artifacts, low quality, watermark, unfinished, displeasing, signature, artistic error, username, scan, easynegative",
 			steps: 28,
@@ -43,47 +64,47 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			denoisingStrength: 0.35,
 		},
 	},
-	{
-		name: "realvisxlV5",
-		description:
-			"Фотореалистичная модель для\u00A0людей и\u00A0портретов. Требует точных промптов, иначе появляются артефакты.",
-		path: "realvisxlV5",
-		params: {
-			basePrompt: "",
-			baseNegativePrompt:
-				"(octane render, render, drawing, anime, bad photo, bad photography:1.3), (worst quality, low quality, blurry:1.2), (bad teeth, deformed teeth, deformed lips), (bad anatomy, bad proportions:1.1), (deformed iris, deformed pupils), (deformed eyes, bad eyes), (deformed face, ugly face, bad face), (deformed hands, bad hands, fused fingers), morbid, mutilated, mutation, disfigured",
-			steps: 5,
-			cfgScale: 1.5,
-			clipSkip: 1,
-			width: 896,
-			height: 1152,
-			samplerName: "DPM++ SDE",
-			hrUpscaler: "4x_NMKD-Superscale-SP_178000_G",
-			hrScale: 1.5,
-			hrSecondPassSteps: 3,
-			denoisingStrength: 0.5,
-		},
-	},
-	{
-		name: "novaRealityXL_v9",
-		description:
-			"Художественная модель для\u00A0атмосферных и\u00A0кино сцен. Хороша для\u00A0концепт-арта.",
-		path: "novaRealityXL_v9",
-		params: {
-			basePrompt: "",
-			baseNegativePrompt: "",
-			steps: 30,
-			cfgScale: 4.5,
-			clipSkip: 2,
-			width: 768,
-			height: 1344,
-			samplerName: "Euler a",
-			hrUpscaler: "Latent",
-			hrScale: 1.8,
-			hrSecondPassSteps: 50,
-			denoisingStrength: 0.4,
-		},
-	},
+	// {
+	// 	name: "realvisxlV5",
+	// 	description:
+	// 		"Фотореалистичная модель для\u00A0людей и\u00A0портретов. Требует точных промптов, иначе появляются артефакты.",
+	// 	path: "realvisxlV5",
+	// 	params: {
+	// 		basePrompt: "",
+	// 		baseNegativePrompt:
+	// 			"(octane render, render, drawing, anime, bad photo, bad photography:1.3), (worst quality, low quality, blurry:1.2), (bad teeth, deformed teeth, deformed lips), (bad anatomy, bad proportions:1.1), (deformed iris, deformed pupils), (deformed eyes, bad eyes), (deformed face, ugly face, bad face), (deformed hands, bad hands, fused fingers), morbid, mutilated, mutation, disfigured",
+	// 		steps: 5,
+	// 		cfgScale: 1.5,
+	// 		clipSkip: 1,
+	// 		width: 896,
+	// 		height: 1152,
+	// 		samplerName: "DPM++ SDE",
+	// 		hrUpscaler: "4x_NMKD-Superscale-SP_178000_G",
+	// 		hrScale: 1.5,
+	// 		hrSecondPassSteps: 3,
+	// 		denoisingStrength: 0.5,
+	// 	},
+	// },
+	// {
+	// 	name: "novaRealityXL_v9",
+	// 	description:
+	// 		"Художественная модель для\u00A0атмосферных и\u00A0кино сцен. Хороша для\u00A0концепт-арта.",
+	// 	path: "novaRealityXL_v9",
+	// 	params: {
+	// 		basePrompt: "",
+	// 		baseNegativePrompt: "",
+	// 		steps: 30,
+	// 		cfgScale: 4.5,
+	// 		clipSkip: 2,
+	// 		width: 768,
+	// 		height: 1344,
+	// 		samplerName: "Euler a",
+	// 		hrUpscaler: "Latent",
+	// 		hrScale: 1.8,
+	// 		hrSecondPassSteps: 50,
+	// 		denoisingStrength: 0.4,
+	// 	},
+	// },
 	{
 		name: "Deliberate_v6",
 		description:

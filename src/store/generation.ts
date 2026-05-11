@@ -8,15 +8,13 @@ import {
 } from "@/types/model-presets";
 import { convertBase64ToFile } from "@/utils/image-process";
 import { create } from "zustand";
+import { useGenerationSettingsStore } from "./generationSettings";
+import { getRatingPrompts } from "@/utils/rating";
 
 type GenerationStore = {
-	prompt: string;
-	negativePrompt: string;
 	image: string | null;
 	lastImageParams: ITxt2ImgPayload | null;
 	lastImageInfo: IImageInfo | null;
-
-	selectedModelPath: string;
 
 	previewImage: string | null;
 	progress: number;
@@ -26,17 +24,6 @@ type GenerationStore = {
 
 	intervalId: ReturnType<typeof setInterval> | null;
 
-	setPrompt: (v: string) => void;
-	setNegativePrompt: (v: string) => void;
-	setImage: (v: string) => void;
-	setLastImageParams: (v: ITxt2ImgPayload) => void;
-	setLastImageInfo: (v: IImageInfo) => void;
-
-	setSelectedModelPath: (model: string) => void;
-
-	setPreviewImage: (v: string | null) => void;
-	setProgress: (v: number) => void;
-
 	startPolling: () => void;
 	stopPolling: () => void;
 
@@ -44,12 +31,9 @@ type GenerationStore = {
 };
 
 export const useGenerationStore = create<GenerationStore>((set, get) => ({
-	prompt: "",
-	negativePrompt: "",
 	image: null,
 	lastImageParams: null,
 	lastImageInfo: null,
-	selectedModelPath: MODEL_DEFAULT_PRESETS[0].path,
 
 	isLoading: false,
 	isPolling: false,
@@ -58,16 +42,6 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 
 	previewImage: null,
 	progress: 0,
-
-	setPrompt: (prompt) => set({ prompt }),
-	setNegativePrompt: (negativePrompt) => set({ negativePrompt }),
-	setImage: (image) => set({ image }),
-	setLastImageParams: (params) => set({ lastImageParams: params }),
-	setLastImageInfo: (info) => set({ lastImageInfo: info }),
-	setSelectedModelPath: (path) => set({ selectedModelPath: path }),
-
-	setPreviewImage: (previewImage) => set({ previewImage }),
-	setProgress: (progress) => set({ progress }),
 
 	startPolling: () => {
 		const { intervalId } = get();
@@ -85,8 +59,6 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 				const data = res.data;
 
 				last = Math.max(last, data.progress);
-
-				console.log(data.currentImage ? true : false);
 
 				if (data.currentImage) lastPreview = data.currentImage;
 
@@ -119,18 +91,11 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 	},
 
 	generate: async (isHires = false) => {
-		const {
-			prompt,
-			negativePrompt,
-			selectedModelPath,
-			lastImageParams,
-			lastImageInfo,
-			setImage,
-			setLastImageParams,
-			setLastImageInfo,
-			startPolling,
-			stopPolling,
-		} = get();
+		const settings = useGenerationSettingsStore.getState();
+
+		const { prompt, negativePrompt, selectedModelPath, rating } = settings;
+
+		const { lastImageParams, lastImageInfo, startPolling, stopPolling } = get();
 
 		const modelPreset = MODEL_DEFAULT_PRESETS.find(
 			(mp) => mp.path === selectedModelPath,
@@ -138,9 +103,19 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 
 		if (!modelPreset) return;
 
+		const rp = getRatingPrompts(rating);
+
 		let body: ITxt2ImgPayload = {
-			prompt: modelPreset.params.basePrompt + prompt,
-			negativePrompt: negativePrompt + modelPreset.params.baseNegativePrompt,
+			prompt:
+				(rp.positive !== "explicit" ? rp.positive : "") +
+				(prompt && rp.positive !== "explicit" ? ", " : "") +
+				prompt +
+				modelPreset.params.basePrompt,
+			negativePrompt:
+				rp.negative +
+				(negativePrompt ? ", " : "") +
+				negativePrompt +
+				modelPreset.params.baseNegativePrompt,
 			overrideSettings: {
 				sdModelCheckpoint: modelPreset.path,
 			},
@@ -167,11 +142,11 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 
 			const path = await convertBase64ToFile(data.images[0]);
 
-			setImage(path);
-
-			setLastImageInfo(JSON.parse(data.info));
-
-			setLastImageParams(data.parameters);
+			set({
+				image: path,
+				lastImageInfo: JSON.parse(data.info),
+				lastImageParams: data.parameters,
+			});
 		} catch (e) {
 			console.log(e);
 			stopPolling();
