@@ -9,14 +9,19 @@ const styles = StyleSheet.create({
 		padding: 12,
 		flexDirection: "row",
 		gap: 10,
+		borderColor: COLORS.border,
 	},
 	default: {
 		backgroundColor: COLORS.primary,
-		borderColor: COLORS.border,
 	},
 	success: {
 		backgroundColor: COLORS.success,
-		borderColor: COLORS.border,
+	},
+	warning: {
+		backgroundColor: COLORS.warning,
+	},
+	error: {
+		backgroundColor: COLORS.error,
 	},
 	text: {
 		textTransform: "uppercase",

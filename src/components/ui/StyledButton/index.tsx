@@ -7,7 +7,7 @@ import { ComponentProps } from "react";
 
 interface StyledButtonProps extends Omit<PressableProps, "children"> {
 	title?: string;
-	variant?: "default" | "success";
+	variant?: "default" | "success" | "warning" | "error";
 	icon?: {
 		name: ComponentProps<typeof Ionicons>["name"];
 		size?: number;
@@ -18,6 +18,8 @@ interface StyledButtonProps extends Omit<PressableProps, "children"> {
 const variantStyles = {
 	default: styles.default,
 	success: styles.success,
+	warning: styles.warning,
+	error: styles.error,
 } as const;
 
 const StyledButton = ({

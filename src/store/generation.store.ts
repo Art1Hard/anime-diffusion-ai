@@ -28,6 +28,7 @@ type GenerationStore = {
 	stopPolling: () => void;
 
 	generate: (isHires?: boolean) => Promise<void>;
+	interrupt: () => Promise<void>;
 };
 
 export const useGenerationStore = create<GenerationStore>((set, get) => ({
@@ -152,6 +153,12 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			stopPolling();
 		} finally {
 			set({ isLoading: false });
+		}
+	},
+	interrupt: async () => {
+		try {
+			await sdApi.post("/interrupt");
+		} finally {
 		}
 	},
 }));

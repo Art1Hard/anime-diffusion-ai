@@ -4,20 +4,17 @@ import {
 	GenerationFields,
 	GenerationOutput,
 } from "./components";
-import useGeneration from "./hooks/useGeneration";
+import { useGenerationStore } from "@/store";
 
 const GenerationScreen = () => {
-	const { image, isLoading, generate } = useGeneration();
+	const image = useGenerationStore((gs) => gs.image);
+	const isLoading = useGenerationStore((gs) => gs.isLoading);
 
 	return (
 		<ScreenContainer>
 			<GenerationFields style={{ marginBottom: 15 }} />
 			<GenerationOutput image={image} isLoading={isLoading} />
-			<GenerationButtons
-				generate={generate}
-				image={image}
-				isLoading={isLoading}
-			/>
+			<GenerationButtons image={image} isLoading={isLoading} />
 		</ScreenContainer>
 	);
 };
