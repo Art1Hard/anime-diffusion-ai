@@ -1,5 +1,5 @@
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
-import { useGenerationSettingsStore } from "@/store/generationSettings";
+import { useGenerationSettingsStore } from "@/store";
 import { useMemo } from "react";
 
 const useGenerationFields = () => {

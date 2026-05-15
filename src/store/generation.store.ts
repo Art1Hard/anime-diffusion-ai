@@ -8,7 +8,7 @@ import {
 } from "@/types/model-presets";
 import { convertBase64ToFile } from "@/utils/image-process";
 import { create } from "zustand";
-import { useGenerationSettingsStore } from "./generationSettings";
+import { useGenerationSettingsStore } from "@/store";
 import { getRatingPrompts } from "@/utils/rating";
 
 type GenerationStore = {

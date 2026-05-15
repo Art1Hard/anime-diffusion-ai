@@ -3,7 +3,7 @@ import camelcaseKeys from "camelcase-keys";
 import snakecaseKeys from "snakecase-keys";
 
 const sdApi = axios.create({
-	baseURL: "http://192.168.0.19:7860/sdapi/v1",
+	baseURL: `${process.env.EXPO_PUBLIC_SD_HOST}/sdapi/v1`,
 });
 
 // 1. Конвертируем ОТПРАВЛЯЕМЫЕ данные: camelCase -> snake_case

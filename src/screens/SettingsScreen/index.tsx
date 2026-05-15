@@ -13,7 +13,7 @@ import COLORS from "@/constants/colors";
 import ScreenContainer from "@/components/ui/ScreenContainer";
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import styles from "./styles";
-import { useGenerationSettingsStore } from "@/store/generationSettings";
+import { useGenerationSettingsStore } from "@/store";
 
 const SettingsScreen = () => {
 	const selectedModelPath = useGenerationSettingsStore(

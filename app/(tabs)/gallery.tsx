@@ -1,5 +1,5 @@
 import COLORS from "@/constants/colors";
-import { useGalleryStore } from "@/store/gallery";
+import { useGalleryStore } from "@/store";
 import { useState } from "react";
 import { Image } from "expo-image";
 import {

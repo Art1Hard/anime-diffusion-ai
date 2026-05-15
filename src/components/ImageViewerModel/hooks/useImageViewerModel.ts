@@ -1,4 +1,4 @@
-import { useGenerationStore } from "@/store/generation";
+import { useGenerationStore } from "@/store";
 import { useEffect, useState } from "react";
 import { SystemBars } from "react-native-edge-to-edge";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";

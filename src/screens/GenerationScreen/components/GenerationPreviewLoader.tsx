@@ -3,7 +3,7 @@ import { ActivityIndicator } from "react-native";
 import COLORS from "@/constants/colors";
 import { Image } from "expo-image";
 import ProgressBar from "../../../components/ui/ProgressBar";
-import { useGenerationStore } from "@/store/generation";
+import { useGenerationStore } from "@/store";
 
 const GenerationPreviewLoader = ({ style, ...props }: ViewProps) => {
 	const progress = useGenerationStore((gs) => gs.progress);

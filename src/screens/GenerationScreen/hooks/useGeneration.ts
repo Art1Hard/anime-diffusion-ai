@@ -1,4 +1,4 @@
-import { useGenerationStore } from "@/store/generation";
+import { useGenerationStore } from "@/store";
 
 const useGeneration = () => {
 	const generate = useGenerationStore((gs) => gs.generate);
