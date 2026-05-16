@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		gap: 12,
 	},
-	generateBtn: { flex: 1.9 },
+	generateBtn: { flex: 1.8 },
 	saveBtn: {
-		flex: 1.1,
+		flex: 1.2,
 		justifyContent: "center",
 	},
 });

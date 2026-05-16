@@ -124,7 +124,7 @@ const SettingsScreen = () => {
 				</View>
 			</ScreenContainer>
 
-			<ScreenContainer>
+			{/* <ScreenContainer>
 				<View style={styles.sectionHeader}>
 					<Ionicons name="options-outline" size={20} color={COLORS.primary} />
 					<Text style={styles.sectionTitle}>Продвинутые параметры</Text>
@@ -218,7 +218,7 @@ const SettingsScreen = () => {
 					/>
 					<Text style={styles.resetBtnText}>Сбросить</Text>
 				</TouchableOpacity>
-			</ScreenContainer>
+			</ScreenContainer> */}
 		</ScrollView>
 	);
 };

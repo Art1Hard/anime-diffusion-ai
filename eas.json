@@ -9,9 +9,12 @@
       "distribution": "internal"
     },
     "preview": {
-  "distribution": "internal",
+		"distribution": "internal",
 		"android": {
 			"buildType": "apk"
+		},
+		"env": {
+			"EXPO_PUBLIC_SD_HOST": "http://192.168.0.19:7860"
 		}
 	},
     "production": {

@@ -1,7 +1,6 @@
 import StyledButton from "@/components/ui/StyledButton";
 import { View, ViewProps } from "react-native";
 import styles from "./styles";
-import { saveImageToGallery } from "@/utils/image-process";
 import useGenerationButtons from "../../hooks/useGenerationButtons";
 
 interface GenerationButtonsProps extends ViewProps {
@@ -15,7 +14,9 @@ const GenerationButtons = ({
 	style,
 	...props
 }: GenerationButtonsProps) => {
-	const { isInterrupting, onGenerate } = useGenerationButtons({ isLoading });
+	const { isInterrupting, onGenerate, onImport } = useGenerationButtons({
+		isLoading,
+	});
 
 	return (
 		<View style={[styles.root, style]} {...props}>
@@ -37,12 +38,12 @@ const GenerationButtons = ({
 				disabled={isInterrupting}
 			/>
 			<StyledButton
-				title="Save"
+				title="Import"
 				variant="success"
-				onPress={() => saveImageToGallery(image)}
+				onPress={onImport}
 				style={styles.saveBtn}
-				icon={{ name: "images", size: 20 }}
-				disabled={!image || isLoading}
+				icon={{ name: "arrow-down-circle-outline", size: 20 }}
+				// disabled={isLoading}
 			/>
 		</View>
 	);

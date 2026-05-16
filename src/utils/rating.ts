@@ -9,3 +9,11 @@ export const getRatingPrompts = (selected: Rating) => {
 		negative: RATINGS.slice(index + 1).join(", "),
 	};
 };
+
+export const removeRatingTags = (prompt: string): string => {
+	let result = prompt;
+	RATINGS.forEach((tag) => {
+		result = result.replace(new RegExp(`^${tag},?\\s*`), "").trim();
+	});
+	return result;
+};

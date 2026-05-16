@@ -1,7 +1,13 @@
-import { useGenerationStore } from "@/store";
+import { useGenerationSettingsStore, useGenerationStore } from "@/store";
+import importFromImage from "@/utils/image-process/importFromImage";
 import { useEffect, useState } from "react";
 
 const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
+	const setPrompt = useGenerationSettingsStore((gs) => gs.setPrompt);
+	const setNegativePrompt = useGenerationSettingsStore(
+		(gs) => gs.setNegativePrompt,
+	);
+
 	const generate = useGenerationStore((gs) => gs.generate);
 	const interrupt = useGenerationStore((gs) => gs.interrupt);
 	const [isInterrupting, setIsInterrupting] = useState(false);
@@ -24,7 +30,15 @@ const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
 		generate();
 	};
 
-	return { isInterrupting, onGenerate };
+	const onImport = async () => {
+		const result = await importFromImage();
+		if (result) {
+			setPrompt(result.prompt);
+			setNegativePrompt(result.negativePrompt);
+		}
+	};
+
+	return { isInterrupting, onGenerate, onImport };
 };
 
 export default useGenerationButtons;
