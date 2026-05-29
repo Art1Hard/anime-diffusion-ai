@@ -2,7 +2,6 @@ import * as ImagePicker from "expo-image-picker";
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import { removeRatingTags } from "@/utils/rating";
 import { ToastAndroid } from "react-native";
-import parsePngInfo from "./parsePngInfo";
 import sdApi from "@/api/interceptors";
 
 const importFromImage = async () => {
@@ -23,15 +22,8 @@ const importFromImage = async () => {
 		}
 
 		const model = MODEL_DEFAULT_PRESETS.find(
-			(m) => m.path === data.parameters?.model,
+			(m) => m.hash === data.parameters?.modelHash,
 		);
-
-		if (!model) {
-			ToastAndroid.show("Model not found ❌", ToastAndroid.SHORT);
-			return;
-		}
-
-		console.log(`Промпт: ${data.parameters?.model}`);
 
 		const clean = (text: string, base: string) =>
 			removeRatingTags((text ?? "").replace(base, "").trim());
@@ -39,10 +31,13 @@ const importFromImage = async () => {
 		ToastAndroid.show("Imported successfully ✅", ToastAndroid.SHORT);
 
 		return {
-			prompt: clean(data.parameters?.prompt, model.params.basePrompt.trim()),
+			prompt: clean(
+				data.parameters?.prompt,
+				model?.params.basePrompt.trim() ?? "",
+			),
 			negativePrompt: clean(
 				data.parameters?.negativePrompt,
-				model.params.baseNegativePrompt.trim(),
+				model?.params.baseNegativePrompt.trim() ?? "",
 			),
 		};
 	} catch {

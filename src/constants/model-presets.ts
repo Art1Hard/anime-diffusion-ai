@@ -6,6 +6,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		description:
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
 		path: "waiIllustriousSDXL_v16",
+		hash: "a5f58eb1c3",
 		params: {
 			basePrompt: " ,masterpiece,best quality,amazing quality,",
 			baseNegativePrompt:
@@ -27,6 +28,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		description:
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество (НОВАЯ ВЕРСИЯ).",
 		path: "waiIllustriousSDXL_v170",
+		hash: "f116b0c78f",
 		params: {
 			basePrompt: " ,masterpiece,best quality,amazing quality,",
 			baseNegativePrompt:
@@ -48,6 +50,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		description:
 			"Аниме-модель с\u00A0упором на\u00A0детализацию и\u00A0эстетику. Хорошо подходит для\u00A0персонажей и\u00A0концепт-арта.",
 		path: "animagineXLV31_v31",
+		hash: "e3c47aedb0",
 		params: {
 			basePrompt: " ,masterpiece, best quality, very aesthetic, absurdres,",
 			baseNegativePrompt:
@@ -110,6 +113,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		description:
 			"Лёгкая универсальная модель для\u00A0быстрых тестов и\u00A0простых генераций без\u00A0долгого рендера.",
 		path: "Deliberate_v6",
+		hash: "bcce73a08e",
 		params: {
 			basePrompt: "",
 			baseNegativePrompt: "",
