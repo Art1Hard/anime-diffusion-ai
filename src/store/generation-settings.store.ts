@@ -9,24 +9,29 @@ type GenerationSettingsStore = {
 
 	rating: Rating;
 
+	seed: number;
+
 	setPrompt: (v: string) => void;
 	setNegativePrompt: (v: string) => void;
 	setSelectedModelPath: (v: string) => void;
 	setRating: (v: Rating) => void;
+	setSeed: (v: number) => void;
 };
 
 export const useGenerationSettingsStore = create<GenerationSettingsStore>(
 	(set) => ({
 		prompt: "",
 		negativePrompt: "",
+		selectedModelPath: MODEL_DEFAULT_PRESETS[0].path,
 
 		rating: "general",
 
-		selectedModelPath: MODEL_DEFAULT_PRESETS[0].path,
+		seed: -1,
 
 		setPrompt: (prompt) => set({ prompt }),
 		setNegativePrompt: (negativePrompt) => set({ negativePrompt }),
 		setSelectedModelPath: (selectedModelPath) => set({ selectedModelPath }),
 		setRating: (rating) => set({ rating }),
+		setSeed: (seed) => set({ seed }),
 	}),
 );

@@ -38,6 +38,7 @@ const importFromImage = async () => {
 				data.parameters?.negativePrompt,
 				model?.params.baseNegativePrompt ?? "",
 			),
+			seed: data.parameters?.seed,
 		};
 	} catch {
 		ToastAndroid.show("Failed to import ❌", ToastAndroid.SHORT);

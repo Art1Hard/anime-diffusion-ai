@@ -30,6 +30,7 @@ export interface ITxt2ImgPayload extends Omit<
 > {
 	prompt: string;
 	negativePrompt: string;
+	seed?: number;
 	overrideSettings: { sdModelCheckpoint: string };
 }
 

@@ -103,13 +103,7 @@ const styles = StyleSheet.create({
 		color: COLORS.primary,
 	},
 	input: {
-		backgroundColor: COLORS.surfaceLight,
 		borderRadius: 8,
-		padding: 12,
-		color: COLORS.textPrimary,
-		fontSize: 15,
-		borderWidth: 1,
-		borderColor: COLORS.border,
 	},
 	paramHint: {
 		fontSize: 12,

@@ -14,6 +14,7 @@ import ScreenContainer from "@/components/ui/ScreenContainer";
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import styles from "./styles";
 import { useGenerationSettingsStore } from "@/store";
+import StyledTextInput from "@/components/ui/StyledTextInput";
 
 const SettingsScreen = () => {
 	const selectedModelPath = useGenerationSettingsStore(
@@ -26,7 +27,9 @@ const SettingsScreen = () => {
 	const rating = useGenerationSettingsStore((gs) => gs.rating);
 	const setRating = useGenerationSettingsStore((gs) => gs.setRating);
 
-	const [seed, setSeed] = useState("-1");
+	const seed = useGenerationSettingsStore((gs) => gs.seed);
+	const setSeed = useGenerationSettingsStore((gs) => gs.setSeed);
+
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
 
@@ -124,7 +127,7 @@ const SettingsScreen = () => {
 				</View>
 			</ScreenContainer>
 
-			{/* <ScreenContainer>
+			<ScreenContainer>
 				<View style={styles.sectionHeader}>
 					<Ionicons name="options-outline" size={20} color={COLORS.primary} />
 					<Text style={styles.sectionTitle}>Продвинутые параметры</Text>
@@ -132,26 +135,25 @@ const SettingsScreen = () => {
 
 				<View style={styles.paramCard}>
 					<View style={styles.paramHeader}>
-						<Text style={styles.paramLabel}>Seed (зерно генерации)</Text>
+						<Text style={styles.paramLabel}>Seed</Text>
 						<TouchableOpacity
 							style={styles.randomBtn}
-							onPress={() =>
-								setSeed(Math.floor(Math.random() * 1000000).toString())
-							}>
+							onPress={() => setSeed(Math.floor(Math.random() * 1000000))}>
 							<Ionicons
 								name="shuffle-outline"
 								size={16}
 								color={COLORS.primary}
 							/>
-							<Text style={styles.randomBtnText}>Случайный</Text>
+							<Text style={styles.randomBtnText}>Random</Text>
 						</TouchableOpacity>
 					</View>
-					<TextInput
+					<StyledTextInput
 						style={styles.input}
-						value={seed}
-						onChangeText={setSeed}
-						placeholder="-1 (случайный)"
-						placeholderTextColor={COLORS.textMuted}
+						value={seed === -1 ? "" : seed.toString()}
+						onChangeText={(value) =>
+							setSeed(value === "" ? -1 : parseInt(value) || -1)
+						}
+						placeholder="-1 (random)"
 						keyboardType="numeric"
 					/>
 					<Text style={styles.paramHint}>
@@ -159,7 +161,7 @@ const SettingsScreen = () => {
 					</Text>
 				</View>
 
-				<View style={styles.paramCard}>
+				{/* <View style={styles.paramCard}>
 					<View style={styles.paramHeader}>
 						<Text style={styles.paramLabel}>Шаги генерации</Text>
 						<Text style={styles.paramValue}>{steps}</Text>
@@ -191,10 +193,10 @@ const SettingsScreen = () => {
 						<Text style={styles.sliderLabel}>15</Text>
 					</View>
 					<Text style={styles.paramHint}>Как точно ИИ следует промпту</Text>
-				</View>
+				</View> */}
 			</ScreenContainer>
 
-			<ScreenContainer>
+			{/* <ScreenContainer>
 				<View style={styles.sectionHeader}>
 					<Ionicons name="expand-outline" size={20} color={COLORS.primary} />
 					<Text style={styles.sectionTitle}>Разрешение</Text>
@@ -207,9 +209,9 @@ const SettingsScreen = () => {
 						</TouchableOpacity>
 					))}
 				</View>
-			</ScreenContainer>
+			</ScreenContainer> */}
 
-			<ScreenContainer edges={["bottom"]}>
+			{/* <ScreenContainer edges={["bottom"]}>
 				<TouchableOpacity style={styles.resetBtn}>
 					<Ionicons
 						name="refresh-outline"

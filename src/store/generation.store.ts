@@ -95,7 +95,8 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 	generate: async (isHires = false) => {
 		const settings = useGenerationSettingsStore.getState();
 
-		const { prompt, negativePrompt, selectedModelPath, rating } = settings;
+		const { prompt, negativePrompt, selectedModelPath, rating, seed } =
+			settings;
 
 		const { lastImageParams, lastImageInfo, startPolling, stopPolling } = get();
 
@@ -118,6 +119,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 				prompt: negativePrompt,
 				basePrompt: modelPreset.params.baseNegativePrompt,
 			}),
+			seed,
 			overrideSettings: {
 				sdModelCheckpoint: modelPreset.path,
 			},

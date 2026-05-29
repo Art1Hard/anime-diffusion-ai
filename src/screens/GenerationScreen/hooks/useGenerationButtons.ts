@@ -7,6 +7,7 @@ const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
 	const setNegativePrompt = useGenerationSettingsStore(
 		(gs) => gs.setNegativePrompt,
 	);
+	const setSeed = useGenerationSettingsStore((gs) => gs.setSeed);
 
 	const generate = useGenerationStore((gs) => gs.generate);
 	const interrupt = useGenerationStore((gs) => gs.interrupt);
@@ -35,6 +36,7 @@ const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
 		if (result) {
 			setPrompt(result.prompt);
 			setNegativePrompt(result.negativePrompt);
+			setSeed(result.seed);
 		}
 	};
 
