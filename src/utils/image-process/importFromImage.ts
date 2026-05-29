@@ -26,18 +26,17 @@ const importFromImage = async () => {
 		);
 
 		const clean = (text: string, base: string) =>
-			removeRatingTags((text ?? "").replace(base, "").trim());
+			removeRatingTags((text ?? "").replace(base, ""))
+				.replace(/,\s*$/, "")
+				.trim();
 
 		ToastAndroid.show("Imported successfully ✅", ToastAndroid.SHORT);
 
 		return {
-			prompt: clean(
-				data.parameters?.prompt,
-				model?.params.basePrompt.trim() ?? "",
-			),
+			prompt: clean(data.parameters?.prompt, model?.params.basePrompt ?? ""),
 			negativePrompt: clean(
 				data.parameters?.negativePrompt,
-				model?.params.baseNegativePrompt.trim() ?? "",
+				model?.params.baseNegativePrompt ?? "",
 			),
 		};
 	} catch {

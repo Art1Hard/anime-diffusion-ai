@@ -8,9 +8,9 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "waiIllustriousSDXL_v16",
 		hash: "a5f58eb1c3",
 		params: {
-			basePrompt: " ,masterpiece,best quality,amazing quality,",
+			basePrompt: "masterpiece,best quality,amazing quality,",
 			baseNegativePrompt:
-				" ,bad quality,worst quality,worst detail,sketch,censor, easynegative",
+				"bad quality,worst quality,worst detail,sketch,censor, easynegative",
 			steps: 24,
 			cfgScale: 6,
 			clipSkip: 2,
@@ -30,9 +30,9 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "waiIllustriousSDXL_v170",
 		hash: "f116b0c78f",
 		params: {
-			basePrompt: " ,masterpiece,best quality,amazing quality,",
+			basePrompt: "masterpiece,best quality,amazing quality,",
 			baseNegativePrompt:
-				" ,bad quality,worst quality,worst detail,sketch,censor,",
+				"bad quality,worst quality,worst detail,sketch,censor,",
 			steps: 30,
 			cfgScale: 7,
 			clipSkip: 2,
@@ -52,9 +52,9 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "animagineXLV31_v31",
 		hash: "e3c47aedb0",
 		params: {
-			basePrompt: " ,masterpiece, best quality, very aesthetic, absurdres,",
+			basePrompt: "masterpiece, best quality, very aesthetic, absurdres,",
 			baseNegativePrompt:
-				" ,bad quality, worst quality, worst detail, sketch, censor, lowres, text, jpeg artifacts, low quality, watermark, unfinished, displeasing, signature, artistic error, username, scan, easynegative",
+				"bad quality, worst quality, worst detail, sketch, censor, lowres, text, jpeg artifacts, low quality, watermark, unfinished, displeasing, signature, artistic error, username, scan, easynegative",
 			steps: 28,
 			cfgScale: 7,
 			clipSkip: 2,

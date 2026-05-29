@@ -8,8 +8,9 @@ import {
 } from "@/types/model-presets";
 import { convertBase64ToFile } from "@/utils/image-process";
 import { create } from "zustand";
-import { useGenerationSettingsStore } from "@/store";
+import { useGenerationSettingsStore } from "@/store/generation-settings.store";
 import { getRatingPrompts } from "@/utils/rating";
+import { buildPrompt } from "@/utils/prompt";
 
 type GenerationStore = {
 	image: string | null;
@@ -107,16 +108,16 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 		const rp = getRatingPrompts(rating);
 
 		let body: ITxt2ImgPayload = {
-			prompt:
-				(rp.positive !== "explicit" ? rp.positive : "") +
-				(prompt && rp.positive !== "explicit" ? ", " : "") +
-				prompt +
-				modelPreset.params.basePrompt,
-			negativePrompt:
-				rp.negative +
-				(negativePrompt ? ", " : "") +
-				negativePrompt +
-				modelPreset.params.baseNegativePrompt,
+			prompt: buildPrompt({
+				ratingPrompt: rp.positive,
+				prompt,
+				basePrompt: modelPreset.params.basePrompt,
+			}),
+			negativePrompt: buildPrompt({
+				ratingPrompt: rp.negative,
+				prompt: negativePrompt,
+				basePrompt: modelPreset.params.baseNegativePrompt,
+			}),
 			overrideSettings: {
 				sdModelCheckpoint: modelPreset.path,
 			},

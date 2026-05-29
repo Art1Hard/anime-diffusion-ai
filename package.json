@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
+    "build:preview": "eas build -p android --profile preview --local",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web"
@@ -34,7 +35,6 @@
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
     "snakecase-keys": "^9.0.2",
-    "ts-case-convert": "^2.1.0",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
