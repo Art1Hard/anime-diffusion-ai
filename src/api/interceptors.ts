@@ -9,7 +9,10 @@ const sdApi = axios.create({
 // 1. Конвертируем ОТПРАВЛЯЕМЫЕ данные: camelCase -> snake_case
 sdApi.interceptors.request.use((config) => {
 	if (config.data) {
-		config.data = snakecaseKeys(config.data, { deep: true });
+		const { alwaysonScripts, ...data } = config.data;
+		config.data = snakecaseKeys(data, { deep: true });
+
+		if (alwaysonScripts) config.data.alwayson_scripts = alwaysonScripts;
 	}
 	return config;
 });

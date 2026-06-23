@@ -24,6 +24,28 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		},
 	},
 	{
+		name: "CyberRealistic Pony v1.80 Coreshift",
+		description:
+			"Сбалансированная и универсальная SDXL-модель на базе Pony. Новая версия Coreshift оптимизирована под стабильное качество, чистую аниме-стилистику и высокую детализацию.",
+		path: "cyberrealisticPony_v180Coreshift",
+		hash: "1d580c1c3f",
+		params: {
+			basePrompt: "score_9, score_8_up, score_7_up,",
+			baseNegativePrompt:
+				"score_6, score_5, score_4, (worst quality:1.2), (low quality:1.2), (normal quality:1.2), lowres, bad anatomy, bad hands, signature, watermarks, ugly, imperfect eyes, skewed eyes, unnatural face, unnatural body, error, extra limb, missing limbs",
+			steps: 30,
+			cfgScale: 5,
+			clipSkip: 2,
+			width: 832,
+			height: 1216,
+			samplerName: "DPM++ SDE Karras",
+			hrUpscaler: "4x_NickelbackFS_72000_G",
+			hrScale: 1.5,
+			hrSecondPassSteps: 15,
+			denoisingStrength: 0.4,
+		},
+	},
+	{
 		name: "WAI illustrious SDXL v17",
 		description:
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество (НОВАЯ ВЕРСИЯ).",

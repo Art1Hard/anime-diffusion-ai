@@ -6,6 +6,7 @@ type GenerationSettingsStore = {
 	prompt: string;
 	negativePrompt: string;
 	selectedModelPath: string;
+	isDetailedFace: boolean;
 
 	rating: Rating;
 
@@ -14,15 +15,17 @@ type GenerationSettingsStore = {
 	setPrompt: (v: string) => void;
 	setNegativePrompt: (v: string) => void;
 	setSelectedModelPath: (v: string) => void;
+	toggleDetailedFace: () => void;
 	setRating: (v: Rating) => void;
 	setSeed: (v: number) => void;
 };
 
 export const useGenerationSettingsStore = create<GenerationSettingsStore>(
-	(set) => ({
+	(set, get) => ({
 		prompt: "",
 		negativePrompt: "",
 		selectedModelPath: MODEL_DEFAULT_PRESETS[0].path,
+		isDetailedFace: false,
 
 		rating: "general",
 
@@ -31,6 +34,10 @@ export const useGenerationSettingsStore = create<GenerationSettingsStore>(
 		setPrompt: (prompt) => set({ prompt }),
 		setNegativePrompt: (negativePrompt) => set({ negativePrompt }),
 		setSelectedModelPath: (selectedModelPath) => set({ selectedModelPath }),
+		toggleDetailedFace: () => {
+			const { isDetailedFace } = get();
+			set({ isDetailedFace: !isDetailedFace });
+		},
 		setRating: (rating) => set({ rating }),
 		setSeed: (seed) => set({ seed }),
 	}),

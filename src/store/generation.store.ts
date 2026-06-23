@@ -95,8 +95,14 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 	generate: async (isHires = false) => {
 		const settings = useGenerationSettingsStore.getState();
 
-		const { prompt, negativePrompt, selectedModelPath, rating, seed } =
-			settings;
+		const {
+			prompt,
+			negativePrompt,
+			selectedModelPath,
+			rating,
+			seed,
+			isDetailedFace,
+		} = settings;
 
 		const { lastImageParams, lastImageInfo, startPolling, stopPolling } = get();
 
@@ -135,6 +141,33 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			};
 		}
 
+		if (isDetailedFace) {
+			const adetailer = {
+				alwaysonScripts: {
+					ADetailer: {
+						args: [
+							true,
+							{
+								ad_model: "face_yolov8s.pt",
+								ad_prompt: "",
+								ad_negative_prompt: "",
+								ad_confidence: 0.3,
+								ad_denoising_strength: 0.4,
+								ad_inpaint_only_masked: true,
+								ad_inpaint_only_masked_padding: 32,
+							},
+						],
+					},
+				},
+			};
+			body = {
+				...body,
+				...adetailer,
+			};
+		} else {
+			delete body.alwaysonScripts;
+		}
+
 		set({ isLoading: true });
 
 		startPolling();
@@ -158,6 +191,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			set({ isLoading: false });
 		}
 	},
+
 	interrupt: async () => {
 		try {
 			await sdApi.post("/interrupt");

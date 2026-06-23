@@ -30,6 +30,11 @@ const SettingsScreen = () => {
 	const seed = useGenerationSettingsStore((gs) => gs.seed);
 	const setSeed = useGenerationSettingsStore((gs) => gs.setSeed);
 
+	const isDetailedFace = useGenerationSettingsStore((gs) => gs.isDetailedFace);
+	const toggleDetailedFace = useGenerationSettingsStore(
+		(gs) => gs.toggleDetailedFace,
+	);
+
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
 
@@ -159,6 +164,21 @@ const SettingsScreen = () => {
 					<Text style={styles.paramHint}>
 						-1 = случайное значение, фиксированный seed воспроизводит результат
 					</Text>
+				</View>
+
+				<View style={styles.toggleCard}>
+					<View style={styles.toggleInfo}>
+						<Text style={styles.toggleLabel}>ADetailer</Text>
+						<Text style={styles.toggleDesc}>
+							If it's enabled, correcting face of&nbsp;character(s)
+						</Text>
+					</View>
+					<Switch
+						value={isDetailedFace}
+						onValueChange={toggleDetailedFace}
+						trackColor={{ false: COLORS.border, true: COLORS.primary }}
+						thumbColor={COLORS.textPrimary}
+					/>
 				</View>
 
 				{/* <View style={styles.paramCard}>
