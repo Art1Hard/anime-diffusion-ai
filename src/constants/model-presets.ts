@@ -1,8 +1,22 @@
 import { IModelPreset } from "@/types/model-presets";
 
+function createPreset(preset: IModelPreset): IModelPreset {
+	return {
+		...preset,
+		params: {
+			...preset.params,
+			overrideSettings: {
+				...preset.params.overrideSettings,
+				sdModelCheckpoint: preset.path,
+			},
+		},
+	};
+}
+
 export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
-	{
+	createPreset({
 		name: "WAI illustrious SDXL v16",
+		type: "XL",
 		description:
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
 		path: "waiIllustriousSDXL_v16",
@@ -21,10 +35,49 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrScale: 1.7,
 			hrSecondPassSteps: 12,
 			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\crystalVAESDXL_vaeV3.safetensors",
+				],
+			},
 		},
-	},
-	{
+	}),
+
+	createPreset({
+		name: "WAI ANIMA v1",
+		type: "ANIMA",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "waiANIMA_v10Base10",
+		hash: "9d5a1e1393",
+		params: {
+			basePrompt:
+				"<lora:anima-rl-v0.1:1> <lora:Anima_colorfix_v1_by_Volnovik:1> <lora:background_detailer_v1:0.5> masterpiece, best quality,score_7,",
+			baseNegativePrompt:
+				"worst quality, low quality, score_1, score_2, score_3, artist name,blurry, jpeg artifacts, lowres,censor",
+			steps: 24,
+			cfgScale: 5,
+			clipSkip: 2,
+			width: 832,
+			height: 1216,
+			samplerName: "Euler a",
+			scheduler: "Normal",
+			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
+			hrScale: 1.5,
+			hrSecondPassSteps: 16,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
 		name: "CyberRealistic Pony v1.80 Coreshift",
+		type: "XL",
 		description:
 			"Сбалансированная и универсальная SDXL-модель на базе Pony. Новая версия Coreshift оптимизирована под стабильное качество, чистую аниме-стилистику и высокую детализацию.",
 		path: "cyberrealisticPony_v180Coreshift",
@@ -44,9 +97,11 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrSecondPassSteps: 15,
 			denoisingStrength: 0.4,
 		},
-	},
-	{
+	}),
+
+	createPreset({
 		name: "WAI illustrious SDXL v17",
+		type: "XL",
 		description:
 			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество (НОВАЯ ВЕРСИЯ).",
 		path: "waiIllustriousSDXL_v170",
@@ -66,9 +121,11 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrSecondPassSteps: 20,
 			denoisingStrength: 0.5,
 		},
-	},
-	{
+	}),
+
+	createPreset({
 		name: "Animagine XL v3.1",
+		type: "XL",
 		description:
 			"Аниме-модель с\u00A0упором на\u00A0детализацию и\u00A0эстетику. Хорошо подходит для\u00A0персонажей и\u00A0концепт-арта.",
 		path: "animagineXLV31_v31",
@@ -88,7 +145,30 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrSecondPassSteps: 14,
 			denoisingStrength: 0.35,
 		},
-	},
+	}),
+
+	createPreset({
+		name: "Deliberate_v6",
+		type: "SD",
+		description:
+			"Лёгкая универсальная модель для\u00A0быстрых тестов и\u00A0простых генераций без\u00A0долгого рендера.",
+		path: "Deliberate_v6",
+		hash: "bcce73a08e",
+		params: {
+			basePrompt: "",
+			baseNegativePrompt: "",
+			steps: 22,
+			cfgScale: 5,
+			samplerName: "Euler a",
+			width: 512,
+			height: 512,
+			hrUpscaler: "Latent",
+			hrScale: 1.8,
+			hrSecondPassSteps: 20,
+			denoisingStrength: 0.7,
+		},
+	}),
+
 	// {
 	// 	name: "realvisxlV5",
 	// 	description:
@@ -130,24 +210,4 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	// 		denoisingStrength: 0.4,
 	// 	},
 	// },
-	{
-		name: "Deliberate_v6",
-		description:
-			"Лёгкая универсальная модель для\u00A0быстрых тестов и\u00A0простых генераций без\u00A0долгого рендера.",
-		path: "Deliberate_v6",
-		hash: "bcce73a08e",
-		params: {
-			basePrompt: "",
-			baseNegativePrompt: "",
-			steps: 22,
-			cfgScale: 5,
-			samplerName: "Euler a",
-			width: 512,
-			height: 512,
-			hrUpscaler: "Latent",
-			hrScale: 1.8,
-			hrSecondPassSteps: 20,
-			denoisingStrength: 0.7,
-		},
-	},
 ];

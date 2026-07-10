@@ -1,9 +1,19 @@
 export interface IModelPreset {
 	name: string;
+	type: "SD" | "XL" | "ANIMA";
 	description: string;
 	path: string;
 	hash: string;
 	params: IModelParams;
+}
+
+export interface IImageItem {
+	id: number;
+	uri: string;
+	prompt: string | null;
+	negativePrompt: string | null;
+	seed: number | null;
+	createdAt: number;
 }
 
 export interface IModelParams {
@@ -15,13 +25,18 @@ export interface IModelParams {
 	width: number;
 	height: number;
 	samplerName: string;
+	scheduler?: string;
 	enableHr?: boolean;
-	hrAdditionalModules?: [];
+	hrAdditionalModules?: string[];
 	seed?: number;
 	hrUpscaler: string;
 	hrScale: number;
 	hrSecondPassSteps: number;
 	denoisingStrength: number;
+	overrideSettings?: {
+		sdModelCheckpoint?: string;
+		forgeAdditionalModules?: string[];
+	};
 }
 
 export interface ITxt2ImgPayload extends Omit<
@@ -31,7 +46,6 @@ export interface ITxt2ImgPayload extends Omit<
 	prompt: string;
 	negativePrompt: string;
 	seed?: number;
-	overrideSettings: { sdModelCheckpoint: string };
 	alwaysonScripts?: Record<string, any>;
 }
 

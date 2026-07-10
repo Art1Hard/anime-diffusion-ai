@@ -34,6 +34,15 @@ export default function RootLayout() {
 						animation: "fade",
 					}}
 				/>
+
+				<Stack.Screen
+					name="image-viewer-gallery"
+					options={{
+						presentation: "fullScreenModal",
+						headerShown: false,
+						animation: "fade",
+					}}
+				/>
 			</Stack>
 		</GestureHandlerRootView>
 	);

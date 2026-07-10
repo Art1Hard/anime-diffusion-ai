@@ -11,6 +11,7 @@ import { create } from "zustand";
 import { useGenerationSettingsStore } from "@/store/generation-settings.store";
 import { getRatingPrompts } from "@/utils/rating";
 import { buildPrompt } from "@/utils/prompt";
+import { useGalleryStore } from "./gallery.store";
 
 type GenerationStore = {
 	image: string | null;
@@ -126,9 +127,6 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 				basePrompt: modelPreset.params.baseNegativePrompt,
 			}),
 			seed,
-			overrideSettings: {
-				sdModelCheckpoint: modelPreset.path,
-			},
 			...modelPreset.params,
 		};
 
@@ -136,7 +134,8 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			body = {
 				...lastImageParams,
 				enableHr: isHires,
-				hrAdditionalModules: [],
+				hrAdditionalModules:
+					lastImageParams.overrideSettings?.forgeAdditionalModules ?? [],
 				seed: lastImageInfo.seed,
 			};
 		}
@@ -148,13 +147,13 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 						args: [
 							true,
 							{
-								ad_model: "face_yolov8s.pt",
+								ad_model: "face_yolov9c.pt",
 								ad_prompt: "",
 								ad_negative_prompt: "",
 								ad_confidence: 0.3,
-								ad_denoising_strength: 0.4,
+								ad_denoising_strength: 0.3,
 								ad_inpaint_only_masked: true,
-								ad_inpaint_only_masked_padding: 32,
+								ad_inpaint_only_masked_padding: 64,
 							},
 						],
 					},
@@ -178,11 +177,19 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			stopPolling();
 
 			const path = await convertBase64ToFile(data.images[0]);
+			const imageInfo = JSON.parse(data.info);
 
 			set({
 				image: path,
-				lastImageInfo: JSON.parse(data.info),
+				lastImageInfo: imageInfo,
 				lastImageParams: data.parameters,
+			});
+
+			await useGalleryStore.getState().addImage({
+				uri: path,
+				prompt: body.prompt,
+				negativePrompt: body.negativePrompt,
+				seed: imageInfo.seed,
 			});
 		} catch (e) {
 			console.log(e);
