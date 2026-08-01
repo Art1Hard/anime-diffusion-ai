@@ -12,6 +12,7 @@ import { useGenerationSettingsStore } from "@/store/generation-settings.store";
 import { getRatingPrompts } from "@/utils/rating";
 import { buildPrompt } from "@/utils/prompt";
 import { useGalleryStore } from "./gallery.store";
+import { adetailerConfig } from "@/constants";
 
 type GenerationStore = {
 	image: string | null;
@@ -103,6 +104,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			rating,
 			seed,
 			isDetailedFace,
+			isHires: isSettingHires,
 		} = settings;
 
 		const { lastImageParams, lastImageInfo, startPolling, stopPolling } = get();
@@ -127,41 +129,29 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 				basePrompt: modelPreset.params.baseNegativePrompt,
 			}),
 			seed,
+			enableHr: isSettingHires,
+			hrAdditionalModules:
+				modelPreset.params?.overrideSettings?.forgeAdditionalModules ?? [],
 			...modelPreset.params,
 		};
 
 		if (isHires && lastImageParams && lastImageInfo) {
 			body = {
 				...lastImageParams,
-				enableHr: isHires,
-				hrAdditionalModules:
-					lastImageParams.overrideSettings?.forgeAdditionalModules ?? [],
+				enableHr: true,
 				seed: lastImageInfo.seed,
 			};
 		}
 
 		if (isDetailedFace) {
-			const adetailer = {
+			const scripts = {
 				alwaysonScripts: {
-					ADetailer: {
-						args: [
-							true,
-							{
-								ad_model: "face_yolov9c.pt",
-								ad_prompt: "",
-								ad_negative_prompt: "",
-								ad_confidence: 0.3,
-								ad_denoising_strength: 0.3,
-								ad_inpaint_only_masked: true,
-								ad_inpaint_only_masked_padding: 64,
-							},
-						],
-					},
+					...adetailerConfig,
 				},
 			};
 			body = {
 				...body,
-				...adetailer,
+				...scripts,
 			};
 		} else {
 			delete body.alwaysonScripts;
@@ -177,6 +167,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			stopPolling();
 
 			const path = await convertBase64ToFile(data.images[0]);
+			console.log(path);
 			const imageInfo = JSON.parse(data.info);
 
 			set({

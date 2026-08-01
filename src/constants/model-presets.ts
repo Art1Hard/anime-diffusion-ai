@@ -27,17 +27,51 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 				"bad quality,worst quality,worst detail,sketch,censor, easynegative",
 			steps: 24,
 			cfgScale: 6,
+			distilledCfgScale: null,
 			clipSkip: 2,
 			width: 896,
 			height: 1152,
 			samplerName: "Euler a",
+			scheduler: "Automatic",
 			hrUpscaler: "4x-AnimeSharp",
 			hrScale: 1.7,
+			hrDistilledCfg: null,
 			hrSecondPassSteps: 12,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
 					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\crystalVAESDXL_vaeV3.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "JANIMA",
+		type: "ANIMA",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "JANIMA_v10",
+		hash: "38694ed21a",
+		params: {
+			basePrompt:
+				"masterpiece, highres, absurdres, newest, best quality, score_7",
+			baseNegativePrompt:
+				"worst quality, low quality, lowres, score_1, score_2, score_3, blurry, jpeg artifacts, , long fingers, sepia, bad anatomy, missing fingers, watermark, artist name",
+			steps: 24,
+			cfgScale: 5,
+			width: 832,
+			height: 1216,
+			samplerName: "ER SDE",
+			scheduler: "Simple",
+			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
+			hrScale: 1.5,
+			hrSecondPassSteps: 16,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
 				],
 			},
 		},
@@ -57,7 +91,6 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 				"worst quality, low quality, score_1, score_2, score_3, artist name,blurry, jpeg artifacts, lowres,censor",
 			steps: 24,
 			cfgScale: 5,
-			clipSkip: 2,
 			width: 832,
 			height: 1216,
 			samplerName: "Euler a",
@@ -70,6 +103,125 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 				forgeAdditionalModules: [
 					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
 					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "Kreamania v4.0",
+		type: "ZIT",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "kreamania_variant4",
+		hash: "312f5ab87e",
+		params: {
+			basePrompt: "",
+			baseNegativePrompt: "",
+			steps: 8,
+			cfgScale: 1,
+			width: 1008,
+			height: 1352,
+			samplerName: "ER SDE",
+			scheduler: "Simple",
+			hrUpscaler: "None",
+			hrScale: 1.5,
+			hrSecondPassSteps: 4,
+			denoisingStrength: 0.2,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\qwen3vl_4b_fp8_scaled.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "Hoseki - LustrousMix [Anima v1.0]",
+		type: "ANIMA",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "hosekiLustrousmixAnima_animaV10",
+		hash: "19147601cf",
+		params: {
+			basePrompt:
+				"<lora:anima-rl-v0.1:1> <lora:Anima_colorfix_v1_by_Volnovik:1> <lora:background_detailer_v1:0.5> masterpiece, best quality",
+			baseNegativePrompt:
+				"worst quality, low quality, bad anatomy, jpeg artifacts, signature, sepia, fewer digits, extra digits, bad hands, bad anatomy, watermark, censored, score_1, score_2, score_3",
+			steps: 28,
+			cfgScale: 5,
+			width: 832,
+			height: 1216,
+			samplerName: "Euler a",
+			scheduler: "Beta",
+			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
+			hrScale: 1.5,
+			hrSecondPassSteps: 14,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "Anima Turbo v1.0",
+		type: "ANIMA",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "anima_turboV10",
+		hash: "c0b9050345",
+		params: {
+			basePrompt: "masterpiece, best quality, score_7",
+			baseNegativePrompt:
+				"worst quality, low quality, score_1, score_2, score_3, artist name, blurry, jpeg artifacts, chromatic aberration",
+			steps: 10,
+			cfgScale: 1,
+			width: 832,
+			height: 1216,
+			samplerName: "ER SDE",
+			scheduler: "Simple",
+			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.5,
+			hrSecondPassSteps: 8,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "redcraft22INT8Convrot_redzit15AIO",
+		type: "ZIT",
+		description:
+			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+		path: "redcraft22INT8Convrot_redzit15AIO",
+		hash: "a84e746874",
+		params: {
+			basePrompt: "",
+			baseNegativePrompt: "",
+			steps: 8,
+			cfgScale: 1,
+			width: 1024,
+			height: 1344,
+			samplerName: "Euler",
+			scheduler: "Simple",
+			hrUpscaler: "4x-UltraSharp",
+			hrScale: 1.5,
+			hrSecondPassSteps: 6,
+			denoisingStrength: 0.3,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\flux1AE_v10.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\qwen3_4b.safetensors",
 				],
 			},
 		},
@@ -116,10 +268,15 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			width: 1024,
 			height: 1344,
 			samplerName: "Euler a",
-			hrUpscaler: "R-ESRGAN 4x+ Anime6B",
-			hrScale: 1.5,
-			hrSecondPassSteps: 20,
-			denoisingStrength: 0.5,
+			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.7,
+			hrSecondPassSteps: 12,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\crystalVAESDXL_vaeV3.safetensors",
+				],
+			},
 		},
 	}),
 

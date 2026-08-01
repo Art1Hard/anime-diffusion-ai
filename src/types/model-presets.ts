@@ -1,6 +1,6 @@
 export interface IModelPreset {
 	name: string;
-	type: "SD" | "XL" | "ANIMA";
+	type: "SD" | "XL" | "ANIMA" | "ZIT";
 	description: string;
 	path: string;
 	hash: string;
@@ -21,6 +21,7 @@ export interface IModelParams {
 	baseNegativePrompt: string;
 	steps: number;
 	cfgScale: number;
+	distilledCfgScale?: number | null;
 	clipSkip?: number;
 	width: number;
 	height: number;
@@ -31,6 +32,7 @@ export interface IModelParams {
 	seed?: number;
 	hrUpscaler: string;
 	hrScale: number;
+	hrDistilledCfg?: number | null;
 	hrSecondPassSteps: number;
 	denoisingStrength: number;
 	overrideSettings?: {

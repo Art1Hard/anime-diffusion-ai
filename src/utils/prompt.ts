@@ -16,3 +16,21 @@ export const buildPrompt = (prompts: {
 
 	return tokens.filter((token) => Boolean(token)).join(", ");
 };
+
+export const buildLoraTag = (name: string, weight: number = 1) =>
+	`<lora:${name}:${weight}>`;
+
+export const insertLoraIntoPrompt = (
+	currentPrompt: string,
+	lora: { name: string; triggerWords: string[] },
+	weight: number = 1,
+): string => {
+	const tag = buildLoraTag(lora.name, weight);
+	const keywords = lora.triggerWords.join(", ");
+
+	return [currentPrompt.trim(), tag, keywords]
+		.filter(Boolean)
+		.join(", ")
+		.replace(/,\s*,/g, ",")
+		.trim();
+};

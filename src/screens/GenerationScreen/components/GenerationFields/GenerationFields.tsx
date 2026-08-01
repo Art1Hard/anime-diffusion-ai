@@ -6,6 +6,7 @@ import styles from "./styles";
 import COLORS from "@/constants/colors";
 import useGenerationFields from "@/screens/GenerationScreen/hooks/useGenerationFields";
 import { ROUTES } from "@/constants/routes";
+import LoraPickerButton from "@/components/lora/LoraPickerButton";
 
 const GenerationFields = (props: ViewProps) => {
 	const router = useRouter();
@@ -45,6 +46,9 @@ const GenerationFields = (props: ViewProps) => {
 				textAlignVertical="top"
 				style={{ marginBottom: 10, height: 100 }}
 			/>
+
+			<LoraPickerButton />
+
 			<StyledTextInput
 				value={negativePrompt}
 				onChangeText={(value) => setNegativePrompt(value)}

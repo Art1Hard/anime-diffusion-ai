@@ -35,6 +35,9 @@ const SettingsScreen = () => {
 		(gs) => gs.toggleDetailedFace,
 	);
 
+	const isHires = useGenerationSettingsStore((gs) => gs.isHires);
+	const toggleHires = useGenerationSettingsStore((gs) => gs.toggleHires);
+
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
 
@@ -176,6 +179,21 @@ const SettingsScreen = () => {
 					<Switch
 						value={isDetailedFace}
 						onValueChange={toggleDetailedFace}
+						trackColor={{ false: COLORS.border, true: COLORS.primary }}
+						thumbColor={COLORS.textPrimary}
+					/>
+				</View>
+
+				<View style={styles.toggleCard}>
+					<View style={styles.toggleInfo}>
+						<Text style={styles.toggleLabel}>Hires-fix</Text>
+						<Text style={styles.toggleDesc}>
+							If it's enabled, improving resolution of&nbsp;image
+						</Text>
+					</View>
+					<Switch
+						value={isHires}
+						onValueChange={toggleHires}
 						trackColor={{ false: COLORS.border, true: COLORS.primary }}
 						thumbColor={COLORS.textPrimary}
 					/>
