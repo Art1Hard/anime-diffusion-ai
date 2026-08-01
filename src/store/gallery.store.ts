@@ -17,6 +17,7 @@ type GalleryStore = {
 		seed?: number;
 	}) => Promise<void>;
 	removeImage: (id: number) => Promise<void>;
+	removeImages: (ids: Set<number>) => Promise<void>;
 	clearGallery: () => Promise<void>;
 };
 
@@ -58,6 +59,21 @@ export const useGalleryStore = create<GalleryStore>((set, get) => ({
 
 		set((state) => ({
 			images: state.images.filter((img) => img.id !== id),
+		}));
+	},
+
+	removeImages: async (ids) => {
+		const targetImages = get().images.filter((img) => ids.has(img.id));
+
+		await Promise.all(
+			targetImages.map(async (image) => {
+				await FileSystem.deleteAsync(image.uri, { idempotent: true });
+				await db.delete(imagesTable).where(eq(imagesTable.id, image.id));
+			}),
+		);
+
+		set((state) => ({
+			images: state.images.filter((img) => !ids.has(img.id)),
 		}));
 	},
 
