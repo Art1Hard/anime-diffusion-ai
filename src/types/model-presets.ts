@@ -32,6 +32,7 @@ export interface IModelParams {
 	seed?: number;
 	hrUpscaler: string;
 	hrScale: number;
+	hrCfg: number;
 	hrDistilledCfg?: number | null;
 	hrSecondPassSteps: number;
 	denoisingStrength: number;

@@ -12,7 +12,7 @@ import { useGenerationSettingsStore } from "@/store/generation-settings.store";
 import { getRatingPrompts } from "@/utils/rating";
 import { buildPrompt } from "@/utils/prompt";
 import { useGalleryStore } from "./gallery.store";
-import { adetailerConfig } from "@/constants";
+import { buildAdetailerConfig } from "@/constants";
 
 type GenerationStore = {
 	image: string | null;
@@ -146,7 +146,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 		if (isDetailedFace) {
 			const scripts = {
 				alwaysonScripts: {
-					...adetailerConfig,
+					...buildAdetailerConfig(modelPreset),
 				},
 			};
 			body = {
@@ -169,6 +169,8 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			const path = await convertBase64ToFile(data.images[0]);
 			console.log(path);
 			const imageInfo = JSON.parse(data.info);
+
+			console.log(JSON.stringify(imageInfo, null, 2));
 
 			set({
 				image: path,

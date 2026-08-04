@@ -37,6 +37,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrScale: 1.7,
 			hrDistilledCfg: null,
 			hrSecondPassSteps: 12,
+			hrCfg: 5,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -67,6 +68,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
 			hrScale: 1.5,
 			hrSecondPassSteps: 16,
+			hrCfg: 5,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -99,6 +101,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrScale: 1.5,
 			hrSecondPassSteps: 16,
 			denoisingStrength: 0.35,
+			hrCfg: 5,
 			overrideSettings: {
 				forgeAdditionalModules: [
 					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
@@ -127,6 +130,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "None",
 			hrScale: 1.5,
 			hrSecondPassSteps: 4,
+			hrCfg: 1,
 			denoisingStrength: 0.2,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -158,6 +162,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
 			hrScale: 1.5,
 			hrSecondPassSteps: 14,
+			hrCfg: 5,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -188,6 +193,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "4x-AnimeSharp",
 			hrScale: 1.5,
 			hrSecondPassSteps: 8,
+			hrCfg: 1,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -217,6 +223,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "4x-UltraSharp",
 			hrScale: 1.5,
 			hrSecondPassSteps: 6,
+			hrCfg: 1,
 			denoisingStrength: 0.3,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -246,6 +253,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			samplerName: "DPM++ SDE Karras",
 			hrUpscaler: "4x_NickelbackFS_72000_G",
 			hrScale: 1.5,
+			hrCfg: 5,
 			hrSecondPassSteps: 15,
 			denoisingStrength: 0.4,
 		},
@@ -271,6 +279,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "4x-AnimeSharp",
 			hrScale: 1.7,
 			hrSecondPassSteps: 12,
+			hrCfg: 7,
 			denoisingStrength: 0.35,
 			overrideSettings: {
 				forgeAdditionalModules: [
@@ -300,6 +309,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "4x-AnimeSharp",
 			hrScale: 1.7,
 			hrSecondPassSteps: 14,
+			hrCfg: 7,
 			denoisingStrength: 0.35,
 		},
 	}),
@@ -322,6 +332,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			hrUpscaler: "Latent",
 			hrScale: 1.8,
 			hrSecondPassSteps: 20,
+			hrCfg: 5,
 			denoisingStrength: 0.7,
 		},
 	}),

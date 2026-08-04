@@ -1,1 +1,1 @@
-export { default as adetailerConfig } from "./adetailer.config";
+export { default as buildAdetailerConfig } from "./adetailer.config";
