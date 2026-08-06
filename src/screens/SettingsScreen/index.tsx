@@ -4,7 +4,6 @@ import {
 	Text,
 	ScrollView,
 	TouchableOpacity,
-	TextInput,
 	Switch,
 	Pressable,
 } from "react-native";
@@ -15,6 +14,19 @@ import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import styles from "./styles";
 import { useGenerationSettingsStore } from "@/store";
 import StyledTextInput from "@/components/ui/StyledTextInput";
+
+const ORIENTATION_OPTIONS = [
+	{
+		key: "portrait" as const,
+		label: "Portrait",
+		icon: "phone-portrait-outline" as const,
+	},
+	{
+		key: "landscape" as const,
+		label: "Landscape",
+		icon: "phone-landscape-outline" as const,
+	},
+];
 
 const SettingsScreen = () => {
 	const selectedModelPath = useGenerationSettingsStore(
@@ -37,6 +49,9 @@ const SettingsScreen = () => {
 
 	const isHires = useGenerationSettingsStore((gs) => gs.isHires);
 	const toggleHires = useGenerationSettingsStore((gs) => gs.toggleHires);
+
+	const orientation = useGenerationSettingsStore((gs) => gs.orientation);
+	const setOrientation = useGenerationSettingsStore((gs) => gs.setOrientation);
 
 	const [steps, setSteps] = useState("30");
 	const [guidanceScale, setGuidanceScale] = useState("7.5");
@@ -144,26 +159,30 @@ const SettingsScreen = () => {
 				<View style={styles.paramCard}>
 					<View style={styles.paramHeader}>
 						<Text style={styles.paramLabel}>Seed</Text>
-						<TouchableOpacity
-							style={styles.randomBtn}
-							onPress={() => setSeed(Math.floor(Math.random() * 1000000))}>
-							<Ionicons
-								name="shuffle-outline"
-								size={16}
-								color={COLORS.primary}
-							/>
-							<Text style={styles.randomBtnText}>Random</Text>
-						</TouchableOpacity>
 					</View>
-					<StyledTextInput
-						style={styles.input}
-						value={seed === -1 ? "" : seed.toString()}
-						onChangeText={(value) =>
-							setSeed(value === "" ? -1 : parseInt(value) || -1)
-						}
-						placeholder="-1 (random)"
-						keyboardType="numeric"
-					/>
+
+					<View>
+						<StyledTextInput
+							style={styles.input}
+							value={seed === -1 ? "" : seed.toString()}
+							onChangeText={(value) =>
+								setSeed(value === "" ? -1 : parseInt(value) || -1)
+							}
+							placeholder="-1 (random)"
+							keyboardType="numeric"
+						/>
+						{seed > 0 && (
+							<TouchableOpacity
+								style={styles.resetBtn}
+								onPress={() => setSeed(-1)}>
+								<Ionicons
+									name="close-circle-outline"
+									size={18}
+									color={COLORS.textMuted}
+								/>
+							</TouchableOpacity>
+						)}
+					</View>
 					<Text style={styles.paramHint}>
 						-1 = случайное значение, фиксированный seed воспроизводит результат
 					</Text>
@@ -198,67 +217,44 @@ const SettingsScreen = () => {
 						thumbColor={COLORS.textPrimary}
 					/>
 				</View>
-
-				{/* <View style={styles.paramCard}>
-					<View style={styles.paramHeader}>
-						<Text style={styles.paramLabel}>Шаги генерации</Text>
-						<Text style={styles.paramValue}>{steps}</Text>
-					</View>
-					<View style={styles.sliderContainer}>
-						<Text style={styles.sliderLabel}>20</Text>
-						<View style={styles.sliderTrack}>
-							<View style={[styles.sliderFill, { width: "50%" }]} />
-							<View style={styles.sliderThumb} />
-						</View>
-						<Text style={styles.sliderLabel}>50</Text>
-					</View>
-					<Text style={styles.paramHint}>
-						Больше шагов = выше качество, но медленнее
-					</Text>
-				</View>
-
-				<View style={styles.paramCard}>
-					<View style={styles.paramHeader}>
-						<Text style={styles.paramLabel}>CFG Scale (соответствие)</Text>
-						<Text style={styles.paramValue}>{guidanceScale}</Text>
-					</View>
-					<View style={styles.sliderContainer}>
-						<Text style={styles.sliderLabel}>1</Text>
-						<View style={styles.sliderTrack}>
-							<View style={[styles.sliderFill, { width: "65%" }]} />
-							<View style={styles.sliderThumb} />
-						</View>
-						<Text style={styles.sliderLabel}>15</Text>
-					</View>
-					<Text style={styles.paramHint}>Как точно ИИ следует промпту</Text>
-				</View> */}
 			</ScreenContainer>
 
-			{/* <ScreenContainer>
+			{/* Orientation */}
+			<ScreenContainer>
 				<View style={styles.sectionHeader}>
-					<Ionicons name="expand-outline" size={20} color={COLORS.primary} />
-					<Text style={styles.sectionTitle}>Разрешение</Text>
+					<Ionicons name="crop-outline" size={20} color={COLORS.primary} />
+					<Text style={styles.sectionTitle}>Orientation</Text>
 				</View>
 
-				<View style={styles.resolutionGrid}>
-					{["512×512", "768×768", "1024×1024"].map((res) => (
-						<TouchableOpacity key={res} style={styles.resolutionBtn}>
-							<Text style={styles.resolutionText}>{res}</Text>
-						</TouchableOpacity>
+				<View style={styles.orientationGrid}>
+					{ORIENTATION_OPTIONS.map((item) => (
+						<Pressable
+							key={item.key}
+							style={[
+								styles.orientationBtn,
+								orientation === item.key && styles.orientationBtnActive,
+							]}
+							onPress={() => setOrientation(item.key)}>
+							<Ionicons
+								name={item.icon as any}
+								size={24}
+								color={
+									orientation === item.key
+										? COLORS.primary
+										: COLORS.textSecondary
+								}
+							/>
+							<Text
+								style={[
+									styles.orientationText,
+									orientation === item.key && styles.orientationTextActive,
+								]}>
+								{item.label}
+							</Text>
+						</Pressable>
 					))}
 				</View>
-			</ScreenContainer> */}
-
-			{/* <ScreenContainer edges={["bottom"]}>
-				<TouchableOpacity style={styles.resetBtn}>
-					<Ionicons
-						name="refresh-outline"
-						size={20}
-						color={COLORS.textSecondary}
-					/>
-					<Text style={styles.resetBtnText}>Сбросить</Text>
-				</TouchableOpacity>
-			</ScreenContainer> */}
+			</ScreenContainer>
 		</ScrollView>
 	);
 };

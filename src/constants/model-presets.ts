@@ -15,10 +15,10 @@ function createPreset(preset: IModelPreset): IModelPreset {
 
 export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	createPreset({
-		name: "WAI illustrious SDXL v16",
+		name: "WAI Illustrious XL v16.0",
 		type: "XL",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Универсальная аниме-модель на базе SDXL. Даёт чистый стиль, стабильное качество и хорошо работает с персонажами, пейзажами и иллюстрациями.",
 		path: "waiIllustriousSDXL_v16",
 		hash: "a5f58eb1c3",
 		params: {
@@ -48,10 +48,40 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	}),
 
 	createPreset({
-		name: "JANIMA",
+		name: "WAI Illustrious XL v17.0",
+		type: "XL",
+		description:
+			"Обновлённая версия WAI Illustrious. Улучшенная детализация, повышенное базовое разрешение (1024×1344), более выразительный результат.",
+		path: "waiIllustriousSDXL_v170",
+		hash: "f116b0c78f",
+		params: {
+			basePrompt: "masterpiece,best quality,amazing quality,",
+			baseNegativePrompt:
+				"bad quality,worst quality,worst detail,sketch,censor,",
+			steps: 30,
+			cfgScale: 7,
+			clipSkip: 2,
+			width: 1024,
+			height: 1344,
+			samplerName: "Euler a",
+			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.7,
+			hrSecondPassSteps: 12,
+			hrCfg: 7,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\crystalVAESDXL_vaeV3.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "JANIMA v1.0",
 		type: "ANIMA",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Сбалансированная аниме-модель семейства ANIMA. Хорошая детализация, стабильная анатомия, подходит для разнообразных сцен.",
 		path: "JANIMA_v10",
 		hash: "38694ed21a",
 		params: {
@@ -80,10 +110,10 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	}),
 
 	createPreset({
-		name: "WAI ANIMA v1",
+		name: "WAI ANIMA v1.0",
 		type: "ANIMA",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Первая версия в линейке аниме-моделей на базе Base 1.0. Даёт чистый аниме-стиль с хорошей детализацией персонажей и стабильной композицией. Работает с score-тегами качества.",
 		path: "waiANIMA_v10Base10",
 		hash: "9d5a1e1393",
 		params: {
@@ -115,7 +145,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		name: "Kreamania v4.0",
 		type: "ZIT",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Фотореалистичная модель с нейтральной естественной цветовой палитрой. Ориентирована на реалистичные портреты, естественную кожу и мягкое освещение. Версия 4 заточена под фотореализм.",
 		path: "kreamania_variant4",
 		hash: "312f5ab87e",
 		params: {
@@ -142,10 +172,10 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	}),
 
 	createPreset({
-		name: "Hoseki - LustrousMix [Anima v1.0]",
+		name: "Hoseki LustrousMix",
 		type: "ANIMA",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Яркая аниме-модель с акцентом на насыщенность цветов и блики. Использует LoRA для цветофикса и детализации фона.",
 		path: "hosekiLustrousmixAnima_animaV10",
 		hash: "19147601cf",
 		params: {
@@ -177,7 +207,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		name: "Anima Turbo v1.0",
 		type: "ANIMA",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Ультрабыстрая аниме-модель — всего 10 шагов. Сохраняет приемлемое качество при минимальном времени рендера.",
 		path: "anima_turboV10",
 		hash: "c0b9050345",
 		params: {
@@ -205,10 +235,10 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	}),
 
 	createPreset({
-		name: "redcraft22INT8Convrot_redzit15AIO",
+		name: "RedCraft ZIT INT8",
 		type: "ZIT",
 		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество.",
+			"Компактная ZIT-модель в INT8-квантовании. Очень быстрая генерация, минимальное потребление VRAM, подходит для слабых систем.",
 		path: "redcraft22INT8Convrot_redzit15AIO",
 		hash: "a84e746874",
 		params: {
@@ -238,7 +268,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		name: "CyberRealistic Pony v1.80 Coreshift",
 		type: "XL",
 		description:
-			"Сбалансированная и универсальная SDXL-модель на базе Pony. Новая версия Coreshift оптимизирована под стабильное качество, чистую аниме-стилистику и высокую детализацию.",
+			"Фотореалистичная модель на базе Pony Diffusion. Coreshift-версия оптимизирована для стабильности, чистой анатомии и высокой детализации портретов.",
 		path: "cyberrealisticPony_v180Coreshift",
 		hash: "1d580c1c3f",
 		params: {
@@ -260,122 +290,57 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 	}),
 
 	createPreset({
-		name: "WAI illustrious SDXL v17",
+		name: "Perfect Deliberate v8.0",
 		type: "XL",
-		description:
-			"Сбалансированная аниме SDXL модель. Универсальная, даёт чистый\u00A0стиль и\u00A0стабильное качество (НОВАЯ ВЕРСИЯ).",
-		path: "waiIllustriousSDXL_v170",
-		hash: "f116b0c78f",
+		description: "Testim model",
+		path: "perfectdeliberate_v8",
+		hash: "b3b2975c69",
 		params: {
-			basePrompt: "masterpiece,best quality,amazing quality,",
+			basePrompt: "masterpiece, best quality, very aesthetic, 8K",
 			baseNegativePrompt:
-				"bad quality,worst quality,worst detail,sketch,censor,",
+				"lowres, worst quality, bad quality:1.2, signature, username, logo, watermark, jpeg artifacts, bad hands, cropped, missing fingers, extra digits, fewer digits, error, bad anatomy, ugly, disfigured",
+			clipSkip: 2,
 			steps: 30,
 			cfgScale: 7,
-			clipSkip: 2,
+			samplerName: "DPM++ 2M Karras",
 			width: 1024,
-			height: 1344,
-			samplerName: "Euler a",
+			height: 1536,
 			hrUpscaler: "4x-AnimeSharp",
-			hrScale: 1.7,
-			hrSecondPassSteps: 12,
-			hrCfg: 7,
+			hrScale: 1.5,
+			hrSecondPassSteps: 14,
+			hrCfg: 6.5,
 			denoisingStrength: 0.35,
 			overrideSettings: {
-				forgeAdditionalModules: [
-					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\crystalVAESDXL_vaeV3.safetensors",
-				],
+				forgeAdditionalModules: [],
 			},
 		},
 	}),
 
 	createPreset({
-		name: "Animagine XL v3.1",
-		type: "XL",
-		description:
-			"Аниме-модель с\u00A0упором на\u00A0детализацию и\u00A0эстетику. Хорошо подходит для\u00A0персонажей и\u00A0концепт-арта.",
-		path: "animagineXLV31_v31",
-		hash: "e3c47aedb0",
-		params: {
-			basePrompt: "masterpiece, best quality, very aesthetic, absurdres,",
-			baseNegativePrompt:
-				"bad quality, worst quality, worst detail, sketch, censor, lowres, text, jpeg artifacts, low quality, watermark, unfinished, displeasing, signature, artistic error, username, scan, easynegative",
-			steps: 28,
-			cfgScale: 7,
-			clipSkip: 2,
-			width: 896,
-			height: 1152,
-			samplerName: "Euler a",
-			hrUpscaler: "4x-AnimeSharp",
-			hrScale: 1.7,
-			hrSecondPassSteps: 14,
-			hrCfg: 7,
-			denoisingStrength: 0.35,
-		},
-	}),
-
-	createPreset({
-		name: "Deliberate_v6",
+		name: "Deliberate v6.0",
 		type: "SD",
 		description:
-			"Лёгкая универсальная модель для\u00A0быстрых тестов и\u00A0простых генераций без\u00A0долгого рендера.",
+			"Лёгкая SD 1.5 модель для быстрых тестов и простых генераций. Нетребовательна к ресурсам, универсальна в применении.",
 		path: "Deliberate_v6",
 		hash: "bcce73a08e",
 		params: {
-			basePrompt: "",
-			baseNegativePrompt: "",
-			steps: 22,
-			cfgScale: 5,
-			samplerName: "Euler a",
+			basePrompt: "masterpiece, best quality, ultra-detailed",
+			baseNegativePrompt:
+				"worst quality, low quality, blurry, bad anatomy, bad hands, extra fingers, missing fingers, deformed, mutation, watermark, signature, text",
+			clipSkip: 1,
+			steps: 28,
+			cfgScale: 8,
+			samplerName: "DPM++ 2M Karras",
 			width: 512,
-			height: 512,
-			hrUpscaler: "Latent",
-			hrScale: 1.8,
-			hrSecondPassSteps: 20,
-			hrCfg: 5,
-			denoisingStrength: 0.7,
+			height: 768,
+			hrUpscaler: "4x-UltraSharp",
+			hrScale: 2.0,
+			hrSecondPassSteps: 14,
+			hrCfg: 7,
+			denoisingStrength: 0.3,
+			overrideSettings: {
+				forgeAdditionalModules: [],
+			},
 		},
 	}),
-
-	// {
-	// 	name: "realvisxlV5",
-	// 	description:
-	// 		"Фотореалистичная модель для\u00A0людей и\u00A0портретов. Требует точных промптов, иначе появляются артефакты.",
-	// 	path: "realvisxlV5",
-	// 	params: {
-	// 		basePrompt: "",
-	// 		baseNegativePrompt:
-	// 			"(octane render, render, drawing, anime, bad photo, bad photography:1.3), (worst quality, low quality, blurry:1.2), (bad teeth, deformed teeth, deformed lips), (bad anatomy, bad proportions:1.1), (deformed iris, deformed pupils), (deformed eyes, bad eyes), (deformed face, ugly face, bad face), (deformed hands, bad hands, fused fingers), morbid, mutilated, mutation, disfigured",
-	// 		steps: 5,
-	// 		cfgScale: 1.5,
-	// 		clipSkip: 1,
-	// 		width: 896,
-	// 		height: 1152,
-	// 		samplerName: "DPM++ SDE",
-	// 		hrUpscaler: "4x_NMKD-Superscale-SP_178000_G",
-	// 		hrScale: 1.5,
-	// 		hrSecondPassSteps: 3,
-	// 		denoisingStrength: 0.5,
-	// 	},
-	// },
-	// {
-	// 	name: "novaRealityXL_v9",
-	// 	description:
-	// 		"Художественная модель для\u00A0атмосферных и\u00A0кино сцен. Хороша для\u00A0концепт-арта.",
-	// 	path: "novaRealityXL_v9",
-	// 	params: {
-	// 		basePrompt: "",
-	// 		baseNegativePrompt: "",
-	// 		steps: 30,
-	// 		cfgScale: 4.5,
-	// 		clipSkip: 2,
-	// 		width: 768,
-	// 		height: 1344,
-	// 		samplerName: "Euler a",
-	// 		hrUpscaler: "Latent",
-	// 		hrScale: 1.8,
-	// 		hrSecondPassSteps: 50,
-	// 		denoisingStrength: 0.4,
-	// 	},
-	// },
 ];

@@ -102,27 +102,19 @@ const styles = StyleSheet.create({
 		fontWeight: "700",
 		color: COLORS.primary,
 	},
-	input: {
-		borderRadius: 8,
-	},
+	input: {},
 	paramHint: {
 		fontSize: 12,
 		color: COLORS.textMuted,
 		marginTop: 8,
 	},
-	randomBtn: {
-		flexDirection: "row",
-		alignItems: "center",
-		gap: 4,
-		backgroundColor: COLORS.surfaceLight,
-		paddingHorizontal: 10,
-		paddingVertical: 6,
-		borderRadius: 6,
-	},
-	randomBtnText: {
-		fontSize: 13,
-		color: COLORS.primary,
-		fontWeight: "600",
+	resetBtn: {
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		right: 0,
+		justifyContent: "center",
+		paddingHorizontal: 15,
 	},
 
 	// Slider
@@ -184,42 +176,38 @@ const styles = StyleSheet.create({
 		color: COLORS.textSecondary,
 	},
 
-	// Resolution
-	resolutionGrid: {
+	// Orientation
+	orientationGrid: {
 		flexDirection: "row",
 		gap: 12,
 	},
-	resolutionBtn: {
+	orientationBtn: {
 		flex: 1,
 		backgroundColor: COLORS.surface,
 		borderRadius: 12,
-		padding: 16,
+		paddingVertical: 20,
+		paddingHorizontal: 12,
 		alignItems: "center",
+		gap: 8,
 		borderWidth: 2,
 		borderColor: "transparent",
 	},
-	resolutionText: {
+	orientationBtnActive: {
+		backgroundColor: COLORS.surfaceLight,
+		borderColor: COLORS.primary,
+		shadowColor: COLORS.glow,
+		shadowOffset: { width: 0, height: 0 },
+		shadowOpacity: 1,
+		shadowRadius: 12,
+		elevation: 8,
+	},
+	orientationText: {
 		fontSize: 14,
 		fontWeight: "600",
 		color: COLORS.textPrimary,
 	},
-
-	// Reset
-	resetBtn: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "center",
-		gap: 8,
-		marginHorizontal: 20,
-		padding: 16,
-		borderRadius: 12,
-		borderWidth: 1,
-		borderColor: COLORS.border,
-	},
-	resetBtnText: {
-		fontSize: 15,
-		fontWeight: "600",
-		color: COLORS.textSecondary,
+	orientationTextActive: {
+		color: COLORS.primary,
 	},
 });
 

@@ -105,6 +105,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			seed,
 			isDetailedFace,
 			isHires: isSettingHires,
+			orientation,
 		} = settings;
 
 		const { lastImageParams, lastImageInfo, startPolling, stopPolling } = get();
@@ -133,6 +134,14 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			hrAdditionalModules:
 				modelPreset.params?.overrideSettings?.forgeAdditionalModules ?? [],
 			...modelPreset.params,
+			width:
+				orientation === "landscape"
+					? modelPreset.params.height
+					: modelPreset.params.width,
+			height:
+				orientation === "landscape"
+					? modelPreset.params.width
+					: modelPreset.params.height,
 		};
 
 		if (isHires && lastImageParams && lastImageInfo) {

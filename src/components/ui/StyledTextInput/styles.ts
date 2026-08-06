@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	root: {
 		borderWidth: 1,
 		borderColor: COLORS.border,
-		borderRadius: 5,
+		borderRadius: 8,
 		padding: 10,
 		color: COLORS.textPrimary,
 	},

@@ -32,6 +32,9 @@ const importFromImage = async () => {
 
 		ToastAndroid.show("Imported successfully ✅", ToastAndroid.SHORT);
 
+		console.log(model?.params.basePrompt);
+		console.log(model?.name);
+
 		return {
 			prompt: clean(data.parameters?.prompt, model?.params.basePrompt ?? ""),
 			negativePrompt: clean(

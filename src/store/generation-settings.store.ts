@@ -7,22 +7,28 @@ import { IParsedLora } from "@/types/lora";
 
 type GenerationSettingsStore = {
 	prompt: string;
+	setPrompt: (v: string) => void;
+
 	negativePrompt: string;
+	setNegativePrompt: (v: string) => void;
+
 	selectedModelPath: string;
+	setSelectedModelPath: (v: string) => void;
+
 	isDetailedFace: boolean;
+	toggleDetailedFace: () => void;
+
 	isHires: boolean;
+	toggleHires: () => void;
 
 	rating: Rating;
+	setRating: (v: Rating) => void;
 
 	seed: number;
-
-	setPrompt: (v: string) => void;
-	setNegativePrompt: (v: string) => void;
-	setSelectedModelPath: (v: string) => void;
-	toggleDetailedFace: () => void;
-	toggleHires: () => void;
-	setRating: (v: Rating) => void;
 	setSeed: (v: number) => void;
+
+	orientation: "portrait" | "landscape";
+	setOrientation: (o: "portrait" | "landscape") => void;
 
 	addLoraToPrompt: (lora: IParsedLora, weight?: number) => void;
 };
@@ -38,6 +44,8 @@ export const useGenerationSettingsStore = create<GenerationSettingsStore>(
 		rating: "explicit",
 
 		seed: -1,
+
+		orientation: "portrait",
 
 		setPrompt: (prompt) => set({ prompt }),
 		setNegativePrompt: (negativePrompt) => set({ negativePrompt }),
@@ -57,5 +65,6 @@ export const useGenerationSettingsStore = create<GenerationSettingsStore>(
 			const currentPrompt = get().prompt;
 			set({ prompt: insertLoraIntoPrompt(currentPrompt, lora, weight) });
 		},
+		setOrientation: (o) => set({ orientation: o }),
 	}),
 );

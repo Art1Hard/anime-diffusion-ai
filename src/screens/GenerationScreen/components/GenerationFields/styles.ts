@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		borderWidth: 1,
 		borderColor: COLORS.border,
-		borderRadius: 5,
+		borderRadius: 8,
 		gap: 5,
 	},
 });
