@@ -1,13 +1,9 @@
 import { StyleSheet } from "react-native";
-import COLORS from "@/constants/colors";
 
 const styles = StyleSheet.create({
-	root: {
-		backgroundColor: COLORS.background,
-	},
 	container: {
 		display: "flex",
-		gap: 28,
+		gap: 10,
 	},
 });
 
