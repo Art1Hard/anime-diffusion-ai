@@ -1,25 +1,21 @@
 import COLORS from "@/constants/colors";
 import { useGalleryStore } from "@/store";
 import { useEffect, useState, useCallback } from "react";
-import { Image } from "expo-image";
 import {
 	View,
 	FlatList,
 	Pressable,
 	StyleSheet,
-	Dimensions,
+	ListRenderItemInfo,
 } from "react-native";
 import { initDatabase } from "@/database";
 import { useRouter } from "expo-router";
 import { ROUTES } from "@/constants/routes";
-import { Ionicons } from "@expo/vector-icons"; // или любая другая иконка-либа, которая у тебя есть
-import { FONT_SIZES } from "@/constants/sizes";
+import { Ionicons } from "@expo/vector-icons";
+import { CONTAINER_SIZES, FONT_SIZES, GALLERY_SIZES } from "@/constants/sizes";
 import StyledText from "@/components/ui/StyledText";
-
-const { width } = Dimensions.get("window");
-const listGap = 4;
-const viewHorizontalPadding = 15;
-const ITEM_SIZE = width / 2 - listGap - viewHorizontalPadding;
+import { IImageItem } from "@/types/model-presets";
+import GalleryItem from "@/screens/GalleryScreen/GalleryItem";
 
 export default function Route() {
 	const [ready, setReady] = useState(false);
@@ -39,52 +35,72 @@ export default function Route() {
 			.catch((e) => console.error("DB init failed", e));
 	}, []);
 
-	// ⬇️ переносим сюда, ДО early return
 	const toggleSelect = useCallback((id: number) => {
 		setSelectedIds((prev) => {
 			const next = new Set(prev);
-			if (next.has(id)) {
-				next.delete(id);
-			} else {
-				next.add(id);
-			}
+			if (next.has(id)) next.delete(id);
+			else next.add(id);
 			if (next.size === 0) setSelectionMode(false);
 			return next;
 		});
 	}, []);
 
-	if (!ready) return null;
+	// ⬇️ ВСЕ через useCallback, ВСЕ до if (!ready)
+	const handlePress = useCallback(
+		(item: IImageItem, index: number) => {
+			if (selectionMode) toggleSelect(item.id);
+			else
+				route.push({
+					pathname: ROUTES.IMAGE_VIEWER_GALLERY,
+					params: { index },
+				});
+		},
+		[selectionMode, toggleSelect, route],
+	);
 
-	const handlePress = (item: (typeof images)[number], index: number) => {
-		if (selectionMode) {
+	const handleLongPress = useCallback(
+		(item: IImageItem) => {
+			if (!selectionMode) setSelectionMode(true);
 			toggleSelect(item.id);
-		} else {
-			route.push({
-				pathname: ROUTES.IMAGE_VIEWER_GALLERY,
-				params: { index: index },
-			});
-		}
-	};
+		},
+		[selectionMode, toggleSelect],
+	);
 
-	const handleLongPress = (item: (typeof images)[number]) => {
-		if (!selectionMode) setSelectionMode(true);
-		toggleSelect(item.id);
-	};
-
-	const cancelSelection = () => {
+	const cancelSelection = useCallback(() => {
 		setSelectionMode(false);
 		setSelectedIds(new Set());
-	};
+	}, []);
 
-	const handleDelete = () => {
+	const handleDelete = useCallback(() => {
 		removeImages(selectedIds);
 		cancelSelection();
-	};
+	}, [selectedIds, removeImages, cancelSelection]);
 
-	const handleSave = () => {
-		// логика сохранения выбранных, например через expo-media-library
+	const handleSave = useCallback(() => {
 		cancelSelection();
-	};
+	}, [cancelSelection]);
+
+	const renderItem = useCallback(
+		({ item, index }: ListRenderItemInfo<IImageItem>) => (
+			<GalleryItem
+				item={item}
+				index={index}
+				isSelected={selectedIds.has(item.id)}
+				selectionMode={selectionMode}
+				onPress={handlePress}
+				onLongPress={handleLongPress}
+			/>
+		),
+		[selectedIds, selectionMode, handlePress, handleLongPress],
+	);
+
+	const keyExtractor = useCallback(
+		(item: IImageItem) => item.id.toString(),
+		[],
+	);
+
+	// ⬇️ Только сейчас early return
+	if (!ready) return null;
 
 	return (
 		<View style={styles.container}>
@@ -115,43 +131,13 @@ export default function Route() {
 				data={images}
 				numColumns={2}
 				showsVerticalScrollIndicator={false}
-				keyExtractor={(item) => item.id.toString()}
+				keyExtractor={keyExtractor}
 				contentContainerStyle={styles.list}
-				style={{ paddingTop: selectionMode ? 50 : 0 }}
-				renderItem={({ item, index }) => {
-					const id = item.id;
-					const isSelected = selectedIds.has(id);
-					return (
-						<Pressable
-							onPress={() => handlePress(item, index)}
-							onLongPress={() => handleLongPress(item)}
-							delayLongPress={250}>
-							<View>
-								<Image
-									source={{ uri: item.uri }}
-									cachePolicy="memory-disk"
-									contentFit="cover"
-									style={[styles.image, isSelected && styles.imageSelected]}
-								/>
-								{selectionMode && (
-									<View
-										style={[
-											styles.checkCircle,
-											isSelected && styles.checkCircleActive,
-										]}>
-										{isSelected && (
-											<Ionicons
-												name="checkmark"
-												size={14}
-												color={COLORS.textPrimary}
-											/>
-										)}
-									</View>
-								)}
-							</View>
-						</Pressable>
-					);
-				}}
+				renderItem={renderItem}
+				extraData={selectedIds}
+				removeClippedSubviews={true}
+				maxToRenderPerBatch={10}
+				windowSize={5}
 			/>
 		</View>
 	);
@@ -161,37 +147,11 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: COLORS.background,
-		paddingHorizontal: viewHorizontalPadding,
+		paddingHorizontal: CONTAINER_SIZES.horizontalPadding,
 	},
 	list: {
 		paddingVertical: 20,
-		margin: -listGap,
-	},
-	image: {
-		width: ITEM_SIZE,
-		height: ITEM_SIZE,
-		borderRadius: 10,
-		margin: listGap,
-	},
-	imageSelected: {
-		opacity: 0.6,
-	},
-	checkCircle: {
-		position: "absolute",
-		top: 12,
-		right: 12,
-		width: 22,
-		height: 22,
-		borderRadius: 11,
-		borderWidth: 1.5,
-		borderColor: COLORS.textPrimary,
-		backgroundColor: "rgba(0,0,0,0.25)",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	checkCircleActive: {
-		backgroundColor: COLORS.primaryHover,
-		borderColor: "transparent",
+		margin: -GALLERY_SIZES.listGap,
 	},
 	actionBar: {
 		position: "absolute",

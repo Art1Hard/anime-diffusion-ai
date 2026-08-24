@@ -1,13 +1,11 @@
 import { View, ViewProps } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import COLORS from "@/constants/colors";
+import { CONTAINER_SIZES } from "@/constants/sizes";
 
 interface ScreenContainerProps extends ViewProps {
 	edges?: ("bottom" | "top")[];
 }
-
-const BASE_PADDING = 20;
-const HORIZONTAL_PADDING = 15;
 
 const ScreenContainer = ({
 	edges = [],
@@ -24,9 +22,10 @@ const ScreenContainer = ({
 				{
 					flex: 1,
 					backgroundColor: COLORS.background,
-					paddingHorizontal: HORIZONTAL_PADDING,
-					paddingTop: BASE_PADDING + (hasTop ? insets.top : 0),
-					paddingBottom: BASE_PADDING + (hasBottom ? insets.bottom : 0),
+					paddingHorizontal: CONTAINER_SIZES.horizontalPadding,
+					paddingTop: CONTAINER_SIZES.basePadding + (hasTop ? insets.top : 0),
+					paddingBottom:
+						CONTAINER_SIZES.basePadding + (hasBottom ? insets.bottom : 0),
 				},
 				style,
 			]}
