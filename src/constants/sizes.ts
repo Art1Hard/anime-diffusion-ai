@@ -12,8 +12,7 @@ export const FONT_SIZES = {
 
 export const GALLERY_SIZES = {
 	listGap: 4,
-	getItemSize: () =>
-		width / 2 - GALLERY_SIZES.listGap - CONTAINER_SIZES.horizontalPadding,
+	getItemSize: () => width / 3 - CONTAINER_SIZES.horizontalPadding,
 };
 
 export const CONTAINER_SIZES = {

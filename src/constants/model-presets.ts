@@ -117,8 +117,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "waiANIMA_v10Base10",
 		hash: "9d5a1e1393",
 		params: {
-			basePrompt:
-				"<lora:anima-rl-v0.1:1> <lora:Anima_colorfix_v1_by_Volnovik:1> <lora:background_detailer_v1:0.5> masterpiece, best quality,score_7,",
+			basePrompt: "masterpiece, best quality,score_7,",
 			baseNegativePrompt:
 				"worst quality, low quality, score_1, score_2, score_3, artist name,blurry, jpeg artifacts, lowres,censor",
 			steps: 24,
@@ -221,6 +220,37 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 			samplerName: "ER SDE",
 			scheduler: "Simple",
 			hrUpscaler: "4x-AnimeSharp",
+			hrScale: 1.5,
+			hrSecondPassSteps: 8,
+			hrCfg: 1,
+			denoisingStrength: 0.35,
+			overrideSettings: {
+				forgeAdditionalModules: [
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\VAE\\qwen_image_vae.safetensors",
+					"N:\\SDForgeNeo\\sd-webui-forge-neo\\models\\text_encoder\\anima_baseV10_txt.safetensors",
+				],
+			},
+		},
+	}),
+
+	createPreset({
+		name: "Anima Turbo v1.1",
+		type: "ANIMA",
+		description:
+			"Ультрабыстрая аниме-модель — всего 10 шагов. Сохраняет приемлемое качество при минимальном времени рендера.",
+		path: "anima_turboV11",
+		hash: "fba1195327",
+		params: {
+			basePrompt: "masterpiece, best quality",
+			baseNegativePrompt:
+				"worst quality, low quality, artist name, blurry, jpeg artifacts, chromatic aberration",
+			steps: 10,
+			cfgScale: 1,
+			width: 832,
+			height: 1216,
+			samplerName: "Euler",
+			scheduler: "Simple",
+			hrUpscaler: "RealESRGAN_x4plus_anime_6B",
 			hrScale: 1.5,
 			hrSecondPassSteps: 8,
 			hrCfg: 1,
