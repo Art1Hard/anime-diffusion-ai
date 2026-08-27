@@ -9,6 +9,7 @@ import { initDatabase } from "@/database";
 
 const GalleryScreen = () => {
 	const [ready, setReady] = useState(false);
+
 	const loadImages = useGalleryStore((s) => s.loadImages);
 
 	useEffect(() => {

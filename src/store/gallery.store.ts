@@ -16,6 +16,8 @@ type GalleryStore = {
 	selectedImageIds: Set<number>;
 	enabledSelectionMode: boolean;
 
+	scrollToTopTrigger: number;
+
 	loadImages: () => Promise<void>;
 	addImage: (item: {
 		uri: string;
@@ -32,6 +34,8 @@ type GalleryStore = {
 	disableSelectionMode: () => void;
 
 	saveImages: (ids: Set<number>) => Promise<void>;
+
+	triggerScrollToTop: () => void;
 };
 
 export const useGalleryStore = create<GalleryStore>((set, get) => ({
@@ -40,6 +44,8 @@ export const useGalleryStore = create<GalleryStore>((set, get) => ({
 
 	selectedImageIds: new Set(),
 	enabledSelectionMode: false,
+
+	scrollToTopTrigger: 0,
 
 	loadImages: async () => {
 		const rows = await db
@@ -151,4 +157,7 @@ export const useGalleryStore = create<GalleryStore>((set, get) => ({
 
 		get().disableSelectionMode();
 	},
+
+	triggerScrollToTop: () =>
+		set((s) => ({ scrollToTopTrigger: s.scrollToTopTrigger + 1 })),
 }));

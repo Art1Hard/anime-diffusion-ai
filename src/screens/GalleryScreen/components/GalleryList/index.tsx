@@ -10,6 +10,7 @@ const GalleryList = () => {
 		selectedImageIds,
 		images,
 		enabledSelectionMode,
+		listRef,
 		handlePress,
 		handleLongPress,
 		keyExtractor,
@@ -31,6 +32,7 @@ const GalleryList = () => {
 
 	return (
 		<FlatList
+			ref={listRef}
 			data={images}
 			numColumns={3}
 			showsVerticalScrollIndicator={false}
