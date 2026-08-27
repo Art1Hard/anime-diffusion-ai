@@ -3,8 +3,8 @@ import { useGalleryStore } from "@/store";
 import { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { CONTAINER_SIZES } from "@/constants/sizes";
-import GalleryList from "./GalleryList";
-import GallerySelectionHeader from "./GallerySelectionHeader";
+import GalleryList from "./components/GalleryList";
+import GallerySelectionHeader from "./components/GallerySelectionHeader";
 import { initDatabase } from "@/database";
 
 const GalleryScreen = () => {

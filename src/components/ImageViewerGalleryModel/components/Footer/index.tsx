@@ -1,5 +1,5 @@
 import StyledButton from "@/components/ui/StyledButton";
-import { useGalleryStore, useGenerationStore } from "@/store";
+import { useGalleryStore } from "@/store";
 import { IImageItem } from "@/types/model-presets";
 import { useRouter } from "expo-router";
 import { ViewProps } from "react-native";
