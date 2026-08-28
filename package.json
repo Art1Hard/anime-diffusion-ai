@@ -10,6 +10,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-picker/picker": "2.9.0",
     "axios": "^1.15.2",
     "camelcase-keys": "^10.0.2",
     "drizzle-orm": "^0.45.2",

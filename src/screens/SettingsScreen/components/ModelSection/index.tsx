@@ -1,32 +1,12 @@
 import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import { useGenerationSettingsStore } from "@/store";
 import SettingSection from "../ui/SettingSection";
-import RadioCard from "../ui/RadioCard";
 
 import styles from "./styles";
 import { View } from "react-native";
-import { useCallback } from "react";
+import COLORS from "@/constants/colors";
 
-interface ModelCardProps {
-	model: (typeof MODEL_DEFAULT_PRESETS)[0];
-	isActive: boolean;
-	onSelect: (path: string) => void;
-}
-
-const ModelCard = ({ model, isActive, onSelect }: ModelCardProps) => {
-	const handlePress = useCallback(() => {
-		onSelect(model.path);
-	}, [model.path, onSelect]);
-
-	return (
-		<RadioCard
-			title={model.name}
-			desc={model.description}
-			isActive={isActive}
-			onSelect={handlePress}
-		/>
-	);
-};
+import { Picker } from "@react-native-picker/picker";
 
 const ModelSelection = () => {
 	const selectedModelPath = useGenerationSettingsStore(
@@ -36,24 +16,26 @@ const ModelSelection = () => {
 		(gs) => gs.setSelectedModelPath,
 	);
 
-	const handleSelect = useCallback(
-		(path: string) => {
-			setSelectedModelPath(path);
-		},
-		[setSelectedModelPath],
-	);
-
 	return (
 		<SettingSection title="Choose your model" iconName="cube">
-			<View style={styles.cardContainer}>
-				{MODEL_DEFAULT_PRESETS.map((model) => (
-					<ModelCard
-						model={model}
-						isActive={selectedModelPath === model.path}
-						onSelect={handleSelect}
-						key={model.path}
-					/>
-				))}
+			<View style={styles.root}>
+				<Picker
+					selectedValue={selectedModelPath}
+					onValueChange={(itemValue) => setSelectedModelPath(itemValue)}
+					dropdownIconColor={COLORS.primary}
+					mode="dropdown">
+					{MODEL_DEFAULT_PRESETS.map((model) => (
+						<Picker.Item
+							style={{
+								backgroundColor: COLORS.surface,
+							}}
+							key={model.path}
+							label={model.name}
+							value={model.path}
+							color={COLORS.textPrimary}
+						/>
+					))}
+				</Picker>
 			</View>
 		</SettingSection>
 	);
