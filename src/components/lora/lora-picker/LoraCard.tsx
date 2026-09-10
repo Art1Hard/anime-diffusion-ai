@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { IParsedLora } from "@/types/lora";
+import COLORS from "@/constants/colors";
 
 type Props = {
 	lora: IParsedLora;
@@ -27,7 +28,7 @@ const LoraCard = ({ lora, onPress }: Props) => {
 
 			<View style={styles.info}>
 				<Text style={styles.name} numberOfLines={1}>
-					{lora.alias || lora.name}
+					{lora.name || lora.alias}
 				</Text>
 
 				{lora.baseModel ? (
@@ -59,8 +60,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		paddingHorizontal: 12,
 		borderRadius: 12,
-		backgroundColor: "#1c1c1e",
-		marginBottom: 8,
+		backgroundColor: COLORS.surfaceLight,
 	},
 	preview: { width: 56, height: 56, borderRadius: 8 },
 	previewFallback: {

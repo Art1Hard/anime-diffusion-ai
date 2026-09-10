@@ -27,7 +27,8 @@ const importFromImage = async () => {
 
 		const clean = (text: string, base: string) =>
 			removeRatingTags((text ?? "").replace(base, ""))
-				.replace(/,\s*$/, "")
+				.replace(/^,\s*/, "") // ← удаляет запятую в начале
+				.replace(/,\s*$/, "") // ← удаляет запятую в конце
 				.trim();
 
 		ToastAndroid.show("Imported successfully ✅", ToastAndroid.SHORT);

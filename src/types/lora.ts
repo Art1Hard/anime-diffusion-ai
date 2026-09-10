@@ -16,3 +16,12 @@ export interface IParsedLora {
 	previewCandidates: string[];
 	raw: ILoraItem;
 }
+
+export interface IActiveLora {
+	lora: IParsedLora;
+	weight: number;
+	triggerWords: {
+		word: string;
+		enabled: boolean;
+	}[];
+}

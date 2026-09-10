@@ -6,7 +6,10 @@ import styles from "./styles";
 import COLORS from "@/constants/colors";
 import useGenerationFields from "@/screens/GenerationScreen/hooks/useGenerationFields";
 import { ROUTES } from "@/constants/routes";
-import LoraPickerButton from "@/components/lora/LoraPickerButton";
+import LoraPickerButton from "@/components/lora/lora-picker/LoraPickerButton";
+import { ScrollView } from "react-native-gesture-handler";
+import { LoraChipList } from "@/components/lora/lora-chip";
+import { useLoraStore } from "@/store";
 
 const GenerationFields = (props: ViewProps) => {
 	const router = useRouter();
@@ -18,6 +21,8 @@ const GenerationFields = (props: ViewProps) => {
 		setNegativePrompt,
 		selectedModelName,
 	} = useGenerationFields();
+
+	const activeLoras = useLoraStore((s) => s.activeLoras);
 
 	return (
 		<View {...props}>
@@ -47,8 +52,16 @@ const GenerationFields = (props: ViewProps) => {
 				style={{ marginBottom: 10, height: 100 }}
 			/>
 
-			<LoraPickerButton />
-
+			<View
+				style={{
+					flexDirection: "row",
+					gap: 8,
+					alignItems: "center",
+					marginBottom: 10,
+				}}>
+				<LoraChipList />
+				<LoraPickerButton />
+			</View>
 			<StyledTextInput
 				value={negativePrompt}
 				onChangeText={(value) => setNegativePrompt(value)}

@@ -22,7 +22,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "waiIllustriousSDXL_v16",
 		hash: "a5f58eb1c3",
 		params: {
-			basePrompt: "masterpiece,best quality,amazing quality,",
+			basePrompt: "masterpiece,best quality,amazing quality",
 			baseNegativePrompt:
 				"bad quality,worst quality,worst detail,sketch,censor, easynegative",
 			steps: 24,
@@ -55,7 +55,7 @@ export const MODEL_DEFAULT_PRESETS: IModelPreset[] = [
 		path: "waiIllustriousSDXL_v170",
 		hash: "f116b0c78f",
 		params: {
-			basePrompt: "masterpiece,best quality,amazing quality,",
+			basePrompt: "masterpiece,best quality,amazing quality",
 			baseNegativePrompt:
 				"bad quality,worst quality,worst detail,sketch,censor,",
 			steps: 30,

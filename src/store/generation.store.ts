@@ -13,6 +13,8 @@ import { getRatingPrompts } from "@/utils/rating";
 import { buildPrompt } from "@/utils/prompt";
 import { useGalleryStore } from "./gallery.store";
 import { buildAdetailerConfig } from "@/constants";
+import { useLoraStore } from "./lora.store";
+import convertActiveLorasToString from "@/utils/lora/convertLorasToString";
 
 type GenerationStore = {
 	image: string | null;
@@ -96,6 +98,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 
 	generate: async (isHires = false) => {
 		const settings = useGenerationSettingsStore.getState();
+		const activeLoras = useLoraStore.getState().activeLoras;
 
 		const {
 			prompt,
@@ -123,6 +126,7 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 				ratingPrompt: rp.positive,
 				prompt,
 				basePrompt: modelPreset.params.basePrompt,
+				loraString: convertActiveLorasToString(activeLoras),
 			}),
 			negativePrompt: buildPrompt({
 				ratingPrompt: rp.negative,

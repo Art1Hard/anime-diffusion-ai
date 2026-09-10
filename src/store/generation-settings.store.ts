@@ -2,9 +2,6 @@ import { MODEL_DEFAULT_PRESETS } from "@/constants/model-presets";
 import { Rating } from "@/utils/rating";
 import { create } from "zustand";
 
-import { insertLoraIntoPrompt } from "@/utils/prompt";
-import { IParsedLora } from "@/types/lora";
-
 type GenerationSettingsStore = {
 	prompt: string;
 	setPrompt: (v: string) => void;
@@ -29,8 +26,6 @@ type GenerationSettingsStore = {
 
 	orientation: "portrait" | "landscape";
 	setOrientation: (o: "portrait" | "landscape") => void;
-
-	addLoraToPrompt: (lora: IParsedLora, weight?: number) => void;
 };
 
 export const useGenerationSettingsStore = create<GenerationSettingsStore>(
@@ -60,11 +55,6 @@ export const useGenerationSettingsStore = create<GenerationSettingsStore>(
 		},
 		setRating: (rating) => set({ rating }),
 		setSeed: (seed) => set({ seed }),
-
-		addLoraToPrompt: (lora, weight = 1) => {
-			const currentPrompt = get().prompt;
-			set({ prompt: insertLoraIntoPrompt(currentPrompt, lora, weight) });
-		},
 		setOrientation: (o) => set({ orientation: o }),
 	}),
 );

@@ -10,9 +10,11 @@ import {
 	View,
 } from "react-native";
 import { useLoraStore } from "@/store/lora.store";
-import { useGenerationSettingsStore } from "@/store/generation-settings.store";
 import { IParsedLora } from "@/types/lora";
 import LoraCard from "./LoraCard";
+import COLORS from "@/constants/colors";
+import StyledText from "@/components/ui/StyledText";
+import StyledTextInput from "@/components/ui/StyledTextInput";
 
 type Props = {
 	visible: boolean;
@@ -21,11 +23,9 @@ type Props = {
 
 const LoraPickerModal = ({ visible, onClose }: Props) => {
 	const { loras, isLoading, error, fetchLoras, refreshLoras } = useLoraStore();
-	const addLoraToPrompt = useGenerationSettingsStore((s) => s.addLoraToPrompt);
+	const addLora = useLoraStore((s) => s.addLora);
 
 	const [search, setSearch] = useState("");
-	const [weight, setWeight] = useState("");
-	const [weightTouched, setWeightTouched] = useState(false);
 
 	useEffect(() => {
 		if (visible) fetchLoras();
@@ -36,18 +36,12 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 	);
 
 	const handleSelect = (lora: IParsedLora) => {
-		const typed = parseFloat(weight.replace(",", "."));
-		// если юзер сам не менял вес — берём "preferred weight" из json лоры
-		const finalWeight =
-			weightTouched && !Number.isNaN(typed) ? typed : lora.defaultWeight;
-		addLoraToPrompt(lora, finalWeight);
+		addLora(lora);
 		onClose();
 	};
 
 	const handleClose = () => {
 		setSearch("");
-		setWeight("");
-		setWeightTouched(false);
 		onClose();
 	};
 
@@ -63,36 +57,31 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 				<View style={styles.handle} />
 
 				<View style={styles.header}>
-					<Text style={styles.title}>Выбор LoRA</Text>
+					<StyledText variant="base" style={styles.title}>
+						Choosing LoRA
+					</StyledText>
 					<Pressable onPress={refreshLoras}>
-						<Text style={styles.refresh}>Обновить</Text>
+						<StyledText variant="micro" style={styles.refresh}>
+							Refresh
+						</StyledText>
 					</Pressable>
 				</View>
 
 				<View style={styles.controlsRow}>
-					<TextInput
-						placeholder="Поиск..."
-						placeholderTextColor="#666"
+					<StyledTextInput
+						placeholder="Search..."
 						value={search}
 						onChangeText={setSearch}
 						style={styles.search}
 					/>
-
-					<TextInput
-						placeholder="1.0"
-						placeholderTextColor="#666"
-						value={weight}
-						onChangeText={(v) => {
-							setWeight(v);
-							setWeightTouched(true);
-						}}
-						keyboardType="decimal-pad"
-						style={styles.weightInput}
-					/>
 				</View>
 
 				{isLoading && (
-					<ActivityIndicator style={{ marginTop: 20 }} color="#fff" />
+					<ActivityIndicator
+						style={{ height: "75%" }}
+						size={30}
+						color={COLORS.primary}
+					/>
 				)}
 				{error && <Text style={styles.error}>{error}</Text>}
 
@@ -104,9 +93,9 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 							<LoraCard lora={item} onPress={handleSelect} />
 						)}
 						ListEmptyComponent={
-							<Text style={styles.empty}>Лоры не найдены</Text>
+							<Text style={styles.empty}>Loras not found</Text>
 						}
-						contentContainerStyle={{ paddingBottom: 24 }}
+						contentContainerStyle={{ gap: 8, paddingBottom: 12 }}
 					/>
 				)}
 			</View>
@@ -119,17 +108,17 @@ export default LoraPickerModal;
 const styles = StyleSheet.create({
 	backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
 	sheet: {
-		maxHeight: "75%",
-		backgroundColor: "#000",
+		height: "75%",
+		backgroundColor: COLORS.surface,
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
-		padding: 16,
+		paddingHorizontal: 16,
+		paddingTop: 16,
 	},
 	handle: {
 		width: 40,
 		height: 4,
 		borderRadius: 2,
-		backgroundColor: "#444",
 		alignSelf: "center",
 		marginBottom: 12,
 	},
@@ -139,25 +128,13 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginBottom: 12,
 	},
-	title: { color: "#fff", fontSize: 16, fontWeight: "700" },
-	refresh: { color: "#5ea1ff", fontSize: 13 },
+	title: { fontWeight: "700" },
+	refresh: { color: COLORS.primary },
 	controlsRow: { flexDirection: "row", gap: 8, marginBottom: 12 },
 	search: {
 		flex: 1,
-		backgroundColor: "#1c1c1e",
-		borderRadius: 10,
 		paddingHorizontal: 12,
 		paddingVertical: 8,
-		color: "#fff",
-	},
-	weightInput: {
-		width: 56,
-		backgroundColor: "#1c1c1e",
-		borderRadius: 10,
-		paddingHorizontal: 8,
-		paddingVertical: 8,
-		color: "#fff",
-		textAlign: "center",
 	},
 	error: { color: "#ff6b6b", textAlign: "center", marginTop: 20 },
 	empty: { color: "#666", textAlign: "center", marginTop: 20 },
