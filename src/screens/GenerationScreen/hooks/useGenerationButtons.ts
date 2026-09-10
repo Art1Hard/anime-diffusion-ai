@@ -8,6 +8,9 @@ const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
 		(gs) => gs.setNegativePrompt,
 	);
 	const setSeed = useGenerationSettingsStore((gs) => gs.setSeed);
+	const setSelectedModelPath = useGenerationSettingsStore(
+		(gs) => gs.setSelectedModelPath,
+	);
 
 	const generate = useGenerationStore((gs) => gs.generate);
 	const interrupt = useGenerationStore((gs) => gs.interrupt);
@@ -37,6 +40,7 @@ const useGenerationButtons = ({ isLoading }: { isLoading: boolean }) => {
 			setPrompt(result.prompt);
 			setNegativePrompt(result.negativePrompt);
 			setSeed(result.seed);
+			if (result.model) setSelectedModelPath(result.model.path);
 		}
 	};
 
