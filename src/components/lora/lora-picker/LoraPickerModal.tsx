@@ -6,7 +6,6 @@ import {
 	Pressable,
 	StyleSheet,
 	Text,
-	TextInput,
 	View,
 } from "react-native";
 import { useLoraStore } from "@/store/lora.store";
@@ -36,7 +35,7 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 	);
 
 	const handleSelect = (lora: IParsedLora) => {
-		addLora(lora);
+		addLora(lora, {});
 		onClose();
 	};
 

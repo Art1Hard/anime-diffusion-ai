@@ -42,7 +42,6 @@ const fetchLoraSidecar = async (
 	if (!origin) return null;
 
 	const url = buildFileUrl(`${withoutExt(path)}.json`, origin);
-	console.log(url);
 
 	try {
 		const { data } = await sdApi.get(url, { timeout: 5000 });

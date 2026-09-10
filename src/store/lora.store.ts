@@ -13,8 +13,15 @@ type LoraStore = {
 	fetchLoras: () => Promise<void>;
 	refreshLoras: () => Promise<void>;
 
-	addLora: (lora: IParsedLora) => void;
+	addLora: (
+		lora: IParsedLora,
+		settings: { enableTriggerWords?: boolean; weight?: number },
+	) => void;
+
+	clearActiveLoras: () => void;
+
 	removeLoraByPath: (path: string) => void;
+	findLoraByAlias: (alias: string) => IParsedLora | null;
 
 	updateLoraWeight: (path: string, weight: number) => void;
 	toggleTriggerWord: (path: string, index: number) => void;
@@ -57,7 +64,7 @@ export const useLoraStore = create<LoraStore>((set, get) => ({
 		}
 	},
 
-	addLora: (lora) => {
+	addLora: (lora, { enableTriggerWords = true, weight }) => {
 		set((state) => {
 			const exists = state.activeLoras.some(
 				(active) => active.lora.path === lora.path,
@@ -76,15 +83,19 @@ export const useLoraStore = create<LoraStore>((set, get) => ({
 					...state.activeLoras,
 					{
 						lora,
-						weight: lora.defaultWeight > 0 ? lora.defaultWeight : 1,
+						weight: weight || lora.defaultWeight || 1,
 						triggerWords: lora.triggerWords.map((word) => ({
 							word,
-							enabled: true, // ← все включены по умолчанию
+							enabled: enableTriggerWords,
 						})),
 					},
 				],
 			};
 		});
+	},
+
+	clearActiveLoras: () => {
+		set({ activeLoras: [] });
 	},
 
 	removeLoraByPath: (path) => {
@@ -93,6 +104,11 @@ export const useLoraStore = create<LoraStore>((set, get) => ({
 		);
 
 		set({ activeLoras: filteredLoras });
+	},
+
+	findLoraByAlias: (alias) => {
+		const findedLora = get().loras.find((lora) => lora.alias === alias);
+		return findedLora || null;
 	},
 
 	updateLoraWeight: (path, weight) => {

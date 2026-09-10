@@ -4,6 +4,33 @@ import { removeRatingTags } from "@/utils/rating";
 import { ToastAndroid } from "react-native";
 import sdApi from "@/api/interceptors";
 
+export type ParsedLora = {
+	alias: string;
+	weight: number;
+};
+
+export const parseLoras = (input: string) => {
+	const loras: ParsedLora[] = [];
+
+	const prompt = input
+		.replace(/<lora:([^:>]+):(-?\d+(?:\.\d+)?)>/g, (_, alias, weight) => {
+			loras.push({
+				alias,
+				weight: Number(weight),
+			});
+
+			return "";
+		})
+		.replace(/,\s*,/g, ",")
+		.replace(/^\s*,|,\s*$/g, "")
+		.trim();
+
+	return {
+		loras,
+		prompt,
+	};
+};
+
 const importFromImage = async () => {
 	try {
 		const result = await ImagePicker.launchImageLibraryAsync({
@@ -16,7 +43,10 @@ const importFromImage = async () => {
 		const { data } = await sdApi.post("/png-info", {
 			image: `data:image/png;base64,${result.assets[0].base64}`,
 		});
-		if (!data.parameters.prompt) {
+
+		const prompt: string = data.parameters.prompt;
+
+		if (!prompt) {
 			ToastAndroid.show("No metadata found ❌", ToastAndroid.SHORT);
 			return;
 		}
@@ -36,14 +66,17 @@ const importFromImage = async () => {
 		console.log(model?.params.basePrompt);
 		console.log(model?.name);
 
+		const resultParse = parseLoras(prompt);
+
 		return {
-			prompt: clean(data.parameters?.prompt, model?.params.basePrompt ?? ""),
+			prompt: clean(resultParse.prompt, model?.params.basePrompt ?? ""),
 			negativePrompt: clean(
 				data.parameters?.negativePrompt,
 				model?.params.baseNegativePrompt ?? "",
 			),
 			seed: data.parameters?.seed,
 			model,
+			loras: resultParse.loras,
 		};
 	} catch {
 		ToastAndroid.show("Failed to import ❌", ToastAndroid.SHORT);
