@@ -24,8 +24,8 @@ type GenerationSettingsStore = {
 	seed: number;
 	setSeed: (v: number) => void;
 
-	orientation: "portrait" | "landscape";
-	setOrientation: (o: "portrait" | "landscape") => void;
+	orientation: "portrait" | "landscape" | "square";
+	setOrientation: (o: "portrait" | "landscape" | "square") => void;
 };
 
 export const useGenerationSettingsStore = create<GenerationSettingsStore>(

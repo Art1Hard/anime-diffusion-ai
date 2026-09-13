@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 		elevation: 8,
 	},
 	orientationText: {
-		fontSize: 14,
+		fontSize: 12,
 		fontWeight: "600",
 		color: COLORS.textPrimary,
 	},

@@ -17,6 +17,7 @@ const ORIENTATION_OPTIONS = [
 		label: "Landscape",
 		icon: "phone-landscape-outline" as const,
 	},
+	{ key: "square" as const, label: "Square", icon: "square-outline" },
 ];
 
 const OrientationSection = () => {

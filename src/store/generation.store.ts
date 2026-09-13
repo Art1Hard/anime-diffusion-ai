@@ -141,11 +141,15 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 			width:
 				orientation === "landscape"
 					? modelPreset.params.height
-					: modelPreset.params.width,
+					: orientation === "square"
+						? 1024
+						: modelPreset.params.width,
 			height:
 				orientation === "landscape"
 					? modelPreset.params.width
-					: modelPreset.params.height,
+					: orientation === "square"
+						? 1024
+						: modelPreset.params.height,
 		};
 
 		if (isHires && lastImageParams && lastImageInfo) {
