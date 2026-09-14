@@ -6,8 +6,7 @@ import styles from "./styles";
 import COLORS from "@/constants/colors";
 import useGenerationFields from "@/screens/GenerationScreen/hooks/useGenerationFields";
 import { ROUTES } from "@/constants/routes";
-import LoraPickerButton from "@/components/lora/lora-picker/components/LoraPickerButton";
-import { LoraChipList } from "@/components/lora/active-loras/lora-chip";
+import GenerationLoraArea from "../GenerationLoraArea";
 
 const GenerationFields = (props: ViewProps) => {
 	const router = useRouter();
@@ -48,16 +47,8 @@ const GenerationFields = (props: ViewProps) => {
 				style={{ marginBottom: 10, height: 100 }}
 			/>
 
-			<View
-				style={{
-					flexDirection: "row",
-					gap: 8,
-					alignItems: "center",
-					marginBottom: 10,
-				}}>
-				<LoraChipList />
-				<LoraPickerButton />
-			</View>
+			<GenerationLoraArea />
+
 			<StyledTextInput
 				value={negativePrompt}
 				onChangeText={(value) => setNegativePrompt(value)}

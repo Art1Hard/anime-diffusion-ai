@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
 	error: {
 		backgroundColor: COLORS.error,
 	},
+	muted: { backgroundColor: COLORS.surfaceLight },
+	mutedRounded: { backgroundColor: COLORS.surfaceLight, borderRadius: 30 },
 	text: {
 		textTransform: "uppercase",
 	},

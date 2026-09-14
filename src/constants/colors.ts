@@ -3,6 +3,7 @@ const COLORS = {
 	background: "#0F0F0F",
 	surface: "#1A1A1A",
 	surfaceLight: "#242424",
+	surfaceLighter: "#333",
 
 	// 🧡 Accent (оранжевый)
 	primary: "#FF7A00",

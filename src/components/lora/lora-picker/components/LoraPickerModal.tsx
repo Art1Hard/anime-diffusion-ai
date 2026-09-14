@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
 	ActivityIndicator,
 	Pressable,
@@ -39,11 +39,14 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 		(l.alias || l.name).toLowerCase().includes(search.toLowerCase()),
 	);
 
-	const handleSelect = (lora: IParsedLora) => {
-		addLora(lora, {});
-		setSearch("");
-		onClose();
-	};
+	const handleSelect = useCallback(
+		(lora: IParsedLora) => {
+			addLora(lora, {});
+			setSearch("");
+			onClose();
+		},
+		[addLora, onClose],
+	);
 
 	const handleClose = () => {
 		setSearch("");

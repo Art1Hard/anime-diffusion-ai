@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import LoraPickerModal from "./LoraPickerModal";
-import StyledText from "../../../ui/StyledText";
+import StyledText from "@/components/ui/StyledText";
 import COLORS from "@/constants/colors";
 
 const LoraPickerButton = () => {
@@ -9,7 +9,7 @@ const LoraPickerButton = () => {
 
 	return (
 		<>
-			<Pressable style={styles.btn} onPress={() => setVisible(true)}>
+			<Pressable style={styles.button} onPress={() => setVisible(true)}>
 				<StyledText variant="micro" style={{ color: COLORS.primary }}>
 					+ LoRA
 				</StyledText>
@@ -23,7 +23,7 @@ const LoraPickerButton = () => {
 export default LoraPickerButton;
 
 const styles = StyleSheet.create({
-	btn: {
+	button: {
 		backgroundColor: COLORS.surface,
 		borderRadius: 8,
 		paddingHorizontal: 10,

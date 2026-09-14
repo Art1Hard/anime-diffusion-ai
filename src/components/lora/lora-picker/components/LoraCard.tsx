@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { memo, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
 import { IParsedLora } from "@/types/lora";
 import COLORS from "@/constants/colors";
 import { Pressable } from "react-native-gesture-handler";
+import StyledText from "@/components/ui/StyledText";
 
 type Props = {
 	lora: IParsedLora;
@@ -14,7 +16,7 @@ const LoraCard = ({ lora, onPress }: Props) => {
 	const currentUri = lora.previewCandidates[imgIndex];
 
 	return (
-		<Pressable style={styles.card} onPress={() => onPress(lora)}>
+		<Pressable style={styles.root} onPress={() => onPress(lora)}>
 			{currentUri ? (
 				<Image
 					source={{ uri: currentUri }}
@@ -23,17 +25,19 @@ const LoraCard = ({ lora, onPress }: Props) => {
 				/>
 			) : (
 				<View style={[styles.preview, styles.previewFallback]}>
-					<Text style={styles.previewFallbackText}>LoRA</Text>
+					<StyledText style={styles.previewFallbackText}>LoRA</StyledText>
 				</View>
 			)}
 
 			<View style={styles.info}>
-				<Text style={styles.name} numberOfLines={1}>
+				<StyledText variant="small" style={styles.name} numberOfLines={1}>
 					{lora.name || lora.alias}
-				</Text>
+				</StyledText>
 
 				{lora.baseModel ? (
-					<Text style={styles.baseModel}>{lora.baseModel}</Text>
+					<StyledText variant="micro" style={styles.baseModel}>
+						{lora.baseModel}
+					</StyledText>
 				) : null}
 
 				{lora.triggerWords.length > 0 && (
@@ -52,10 +56,10 @@ const LoraCard = ({ lora, onPress }: Props) => {
 	);
 };
 
-export default LoraCard;
+export default memo(LoraCard);
 
 const styles = StyleSheet.create({
-	card: {
+	root: {
 		flexDirection: "row",
 		gap: 12,
 		paddingVertical: 10,
@@ -65,20 +69,31 @@ const styles = StyleSheet.create({
 	},
 	preview: { width: 56, height: 56, borderRadius: 8 },
 	previewFallback: {
-		backgroundColor: "#333",
+		backgroundColor: COLORS.surfaceLighter,
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	previewFallbackText: { color: "#888", fontSize: 11, fontWeight: "600" },
+	previewFallbackText: {
+		color: COLORS.textSecondary,
+		fontSize: 11,
+		fontWeight: "600",
+	},
 	info: { flex: 1, justifyContent: "center" },
-	name: { color: "#fff", fontSize: 14, fontWeight: "600" },
-	baseModel: { color: "#888", fontSize: 11, marginTop: 2 },
-	tagsRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 6 },
+	name: { fontWeight: "600", marginBottom: 2 },
+	baseModel: { color: COLORS.textSecondary },
+	tagsRow: {
+		flexDirection: "row",
+		overflow: "hidden",
+		borderTopRightRadius: 12,
+		borderBottomRightRadius: 12,
+		gap: 6,
+		marginTop: 6,
+	},
 	tag: {
-		backgroundColor: "#2c2c2e",
+		backgroundColor: COLORS.surfaceLighter,
 		borderRadius: 6,
 		paddingHorizontal: 6,
 		paddingVertical: 2,
 	},
-	tagText: { color: "#aaa", fontSize: 10 },
+	tagText: { color: COLORS.textSecondary, fontSize: 10 },
 });

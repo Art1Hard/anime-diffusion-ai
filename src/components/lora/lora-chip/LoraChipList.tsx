@@ -1,13 +1,12 @@
 import { useLoraStore } from "@/store";
 import LoraChip from "./LoraChip";
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useRef, useState } from "react";
-import LoraDetailModal from "@/components/lora/active-loras/LoraDetailModal";
+import { LoraDetailModal } from "@/components/lora/selected-lora-modifier";
 
 const LoraChipList = () => {
 	const activeLoras = useLoraStore((s) => s.activeLoras);
 	const removeLora = useLoraStore((s) => s.removeLoraByPath);
-	const updateLoraWeight = useLoraStore((s) => s.updateLoraWeight);
 	const toggleTriggerWord = useLoraStore((s) => s.toggleTriggerWord);
 
 	const [selectedPath, setSelectedPath] = useState<string | null>(null); // ← только path!
@@ -48,7 +47,7 @@ const LoraChipList = () => {
 					});
 				}}
 				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={{ gap: 8 }}>
+				contentContainerStyle={styles.contentContainer}>
 				{activeLoras.map(({ lora, weight }) => (
 					<LoraChip
 						key={lora.path}
@@ -64,7 +63,6 @@ const LoraChipList = () => {
 				visible={modalVisible}
 				lora={selectedLora}
 				onClose={closeModal}
-				onWeightChange={updateLoraWeight}
 				onToggleTriggerWord={toggleTriggerWord}
 			/>
 		</>
@@ -72,3 +70,7 @@ const LoraChipList = () => {
 };
 
 export default LoraChipList;
+
+const styles = StyleSheet.create({
+	contentContainer: { gap: 8 },
+});
