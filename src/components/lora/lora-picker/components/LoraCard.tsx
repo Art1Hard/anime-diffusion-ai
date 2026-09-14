@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { IParsedLora } from "@/types/lora";
 import COLORS from "@/constants/colors";
+import { Pressable } from "react-native-gesture-handler";
 
 type Props = {
 	lora: IParsedLora;

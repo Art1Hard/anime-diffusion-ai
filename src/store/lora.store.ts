@@ -71,10 +71,7 @@ export const useLoraStore = create<LoraStore>((set, get) => ({
 			);
 
 			if (exists) {
-				ToastAndroid.show(
-					"Невозможно добавить существующую LoRA",
-					ToastAndroid.SHORT,
-				);
+				ToastAndroid.show("This LoRA already added", ToastAndroid.SHORT);
 				return state;
 			}
 

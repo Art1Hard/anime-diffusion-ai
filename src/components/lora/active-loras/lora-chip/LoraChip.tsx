@@ -25,7 +25,7 @@ const LoraChip = ({ lora, weight, onOpenDetail, onRemove }: LoraChipProps) => {
 				gap: 6,
 			}}>
 			<StyledText variant="micro" style={{ color: COLORS.textPrimary }}>
-				{lora.alias || lora.name}
+				{lora.name.toLowerCase() || lora.alias.toLowerCase()}
 			</StyledText>
 			<StyledText variant="micro" style={{ color: COLORS.textSecondary }}>
 				{weight}

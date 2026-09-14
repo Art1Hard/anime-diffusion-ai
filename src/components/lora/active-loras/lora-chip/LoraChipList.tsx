@@ -2,7 +2,7 @@ import { useLoraStore } from "@/store";
 import LoraChip from "./LoraChip";
 import { ScrollView } from "react-native";
 import { useRef, useState } from "react";
-import LoraDetailModal from "../LoraDetailModal";
+import LoraDetailModal from "@/components/lora/active-loras/LoraDetailModal";
 
 const LoraChipList = () => {
 	const activeLoras = useLoraStore((s) => s.activeLoras);

@@ -6,10 +6,8 @@ import styles from "./styles";
 import COLORS from "@/constants/colors";
 import useGenerationFields from "@/screens/GenerationScreen/hooks/useGenerationFields";
 import { ROUTES } from "@/constants/routes";
-import LoraPickerButton from "@/components/lora/lora-picker/LoraPickerButton";
-import { ScrollView } from "react-native-gesture-handler";
-import { LoraChipList } from "@/components/lora/lora-chip";
-import { useLoraStore } from "@/store";
+import LoraPickerButton from "@/components/lora/lora-picker/components/LoraPickerButton";
+import { LoraChipList } from "@/components/lora/active-loras/lora-chip";
 
 const GenerationFields = (props: ViewProps) => {
 	const router = useRouter();
@@ -21,8 +19,6 @@ const GenerationFields = (props: ViewProps) => {
 		setNegativePrompt,
 		selectedModelName,
 	} = useGenerationFields();
-
-	const activeLoras = useLoraStore((s) => s.activeLoras);
 
 	return (
 		<View {...props}>

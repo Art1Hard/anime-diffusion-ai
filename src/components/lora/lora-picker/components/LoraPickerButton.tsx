@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import LoraPickerModal from "./LoraPickerModal";
-import StyledText from "../../ui/StyledText";
+import StyledText from "../../../ui/StyledText";
 import COLORS from "@/constants/colors";
 
 const LoraPickerButton = () => {

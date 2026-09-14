@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
 	ActivityIndicator,
-	FlatList,
-	Modal,
 	Pressable,
 	StyleSheet,
 	Text,
@@ -14,6 +12,8 @@ import LoraCard from "./LoraCard";
 import COLORS from "@/constants/colors";
 import StyledText from "@/components/ui/StyledText";
 import StyledTextInput from "@/components/ui/StyledTextInput";
+import CustomBottomSheetModal from "@/components/ui/modals/CustomBottomSheetModal";
+import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 
 type Props = {
 	visible: boolean;
@@ -21,7 +21,12 @@ type Props = {
 };
 
 const LoraPickerModal = ({ visible, onClose }: Props) => {
-	const { loras, isLoading, error, fetchLoras, refreshLoras } = useLoraStore();
+	const loras = useLoraStore((s) => s.loras);
+	const isLoading = useLoraStore((s) => s.isLoading);
+	const error = useLoraStore((s) => s.error);
+
+	const fetchLoras = useLoraStore((s) => s.fetchLoras);
+	const refreshLoras = useLoraStore((s) => s.refreshLoras);
 	const addLora = useLoraStore((s) => s.addLora);
 
 	const [search, setSearch] = useState("");
@@ -36,6 +41,7 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 
 	const handleSelect = (lora: IParsedLora) => {
 		addLora(lora, {});
+		setSearch("");
 		onClose();
 	};
 
@@ -45,16 +51,12 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 	};
 
 	return (
-		<Modal
+		<CustomBottomSheetModal
+			scrollable
+			snapPoints={["60%", "80%"]}
 			visible={visible}
-			animationType="slide"
-			transparent
-			onRequestClose={handleClose}>
-			<Pressable style={styles.backdrop} onPress={handleClose} />
-
-			<View style={styles.sheet}>
-				<View style={styles.handle} />
-
+			onClose={handleClose}>
+			<View style={styles.container}>
 				<View style={styles.header}>
 					<StyledText variant="base" style={styles.title}>
 						Choosing LoRA
@@ -77,55 +79,52 @@ const LoraPickerModal = ({ visible, onClose }: Props) => {
 
 				{isLoading && (
 					<ActivityIndicator
-						style={{ height: "75%" }}
+						style={styles.loader}
 						size={30}
 						color={COLORS.primary}
 					/>
 				)}
 				{error && <Text style={styles.error}>{error}</Text>}
-
-				{!isLoading && !error && (
-					<FlatList
-						data={filtered}
-						keyExtractor={(item) => item.path}
-						renderItem={({ item }) => (
-							<LoraCard lora={item} onPress={handleSelect} />
-						)}
-						ListEmptyComponent={
-							<Text style={styles.empty}>Loras not found</Text>
-						}
-						contentContainerStyle={{ gap: 8, paddingBottom: 12 }}
-					/>
-				)}
 			</View>
-		</Modal>
+
+			<BottomSheetFlatList
+				data={filtered}
+				style={styles.list}
+				keyExtractor={(item) => item.path}
+				renderItem={({ item }) => (
+					<LoraCard lora={item} onPress={handleSelect} />
+				)}
+				ListEmptyComponent={
+					!isLoading && !error ? (
+						<Text style={styles.empty}>Loras not found</Text>
+					) : null
+				}
+				contentContainerStyle={styles.contentContainer}
+			/>
+		</CustomBottomSheetModal>
 	);
 };
 
 export default LoraPickerModal;
 
 const styles = StyleSheet.create({
-	backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
-	sheet: {
-		height: "75%",
-		backgroundColor: COLORS.surface,
-		borderTopLeftRadius: 20,
-		borderTopRightRadius: 20,
+	container: {
 		paddingHorizontal: 16,
 		paddingTop: 16,
 	},
-	handle: {
-		width: 40,
-		height: 4,
-		borderRadius: 2,
-		alignSelf: "center",
-		marginBottom: 12,
+	contentContainer: {
+		paddingHorizontal: 16,
+		paddingBottom: 20,
+		gap: 8,
 	},
 	header: {
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
 		marginBottom: 12,
+	},
+	loader: {
+		marginTop: 40,
 	},
 	title: { fontWeight: "700" },
 	refresh: { color: COLORS.primary },
@@ -134,6 +133,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingHorizontal: 12,
 		paddingVertical: 8,
+	},
+	list: {
+		flex: 1,
 	},
 	error: { color: "#ff6b6b", textAlign: "center", marginTop: 20 },
 	empty: { color: "#666", textAlign: "center", marginTop: 20 },
